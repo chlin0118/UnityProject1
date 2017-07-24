@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed;
 
 	private Animator animator;
+	private Rigidbody2D myRigidbody;
+
 	private bool fingerHold = false;
 	private Vector3 startPos;
 	private Vector2 touchPos;
 	private Vector3 endPos;
-	private float realSpeed;
+	//private float realSpeed;
 
 	private bool playerMoving;
 	private Vector2 lastMove;
@@ -18,9 +20,10 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
-		float height = Camera.main.orthographicSize * 2;
-		float width = height * Camera.main.aspect;
-		realSpeed = Screen.width / width * moveSpeed;
+		myRigidbody = GetComponent<Rigidbody2D>();
+		//float height = Camera.main.orthographicSize * 2;
+		//float width = height * Camera.main.aspect;
+		//realSpeed = Screen.width / width * moveSpeed;
 	}
 	
 	// Update is called once per frame
@@ -47,8 +50,8 @@ public class PlayerController : MonoBehaviour {
 		}
 			
 		if (fingerHold) {
-			endPos = new Vector3 (touchPos.x, touchPos.y);
-			startPos = Camera.main.WorldToScreenPoint (transform.position);
+			endPos = Camera.main.ScreenToWorldPoint (new Vector3 (touchPos.x, touchPos.y, 0));
+			startPos = transform.position;
 
 			float deltaX = endPos.x - startPos.x;      // get the difference of x position
 			float deltaY = endPos.y - startPos.y;      // and the y position
@@ -68,10 +71,12 @@ public class PlayerController : MonoBehaviour {
 					animator.SetFloat ("MoveY", -1f);
 				}
 			}
-			Vector3 positionForXY = Camera.main.ScreenToWorldPoint (Vector3.MoveTowards (startPos, endPos, realSpeed * Time.deltaTime));
-			transform.position = new Vector3 (positionForXY.x, positionForXY.y, 0);
+				
+			Vector3 moveUnitVector = (endPos - startPos).normalized;
+			myRigidbody.velocity = new Vector2 (moveUnitVector.x, moveUnitVector.y) * moveSpeed;
 
 		} else {
+			myRigidbody.velocity = new Vector2 (0f, 0f);
 		}
 
 		animator.SetBool ("PlayerMoving", fingerHold);
