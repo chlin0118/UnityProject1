@@ -15,7 +15,10 @@ public class PlayerController : MonoBehaviour {
 	//private float realSpeed;
 
 	private bool playerMoving;
-	private Vector2 lastMove;
+	public Vector2 lastMove;
+	private static bool playerExists;
+
+	public string startPoint;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +27,14 @@ public class PlayerController : MonoBehaviour {
 		//float height = Camera.main.orthographicSize * 2;
 		//float width = height * Camera.main.aspect;
 		//realSpeed = Screen.width / width * moveSpeed;
+
+		if (!playerExists) {
+			playerExists = true;
+			DontDestroyOnLoad (gameObject);
+		} else {
+			Destroy(gameObject);
+		}
+			
 	}
 	
 	// Update is called once per frame
