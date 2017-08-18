@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 	private Animator animator;
 	private Rigidbody2D myRigidbody;
 
+
 	private bool fingerHold = false;
 	private Vector3 startPos;
 	private Vector2 touchPos;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	private static bool playerExists;
 
 	public string startPoint;
+	public TouchController joystick;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +29,8 @@ public class PlayerController : MonoBehaviour {
 		//float height = Camera.main.orthographicSize * 2;
 		//float width = height * Camera.main.aspect;
 		//realSpeed = Screen.width / width * moveSpeed;
-
+		GameObject go = GameObject.Find("Touch");
+		joystick = go.GetComponent<TouchController> ();
 		if (!playerExists) {
 			playerExists = true;
 			DontDestroyOnLoad (gameObject);
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.touchCount > 0){                      // get total touches on screen
+		/*if(Input.touchCount > 0){                      // get total touches on screen
 			Touch touch = Input.GetTouch(0);
 			if(touch.phase == TouchPhase.Began){       // when finger starts touching
 				touchPos = touch.position;
@@ -90,6 +93,39 @@ public class PlayerController : MonoBehaviour {
 			myRigidbody.velocity = new Vector2 (0f, 0f);
 		}
 
-		animator.SetBool ("PlayerMoving", fingerHold);
+		animator.SetBool ("PlayerMoving", fingerHold);*/
+
+		playerMoving = false;
+
+		//Debug.Log ("joystick.Horizontal (): " + joystick.Horizontal ());
+
+		if (joystick.Horizontal () > 0.2f || joystick.Horizontal () < -0.2f) {
+			myRigidbody.velocity = new Vector2 (joystick.Horizontal() * moveSpeed, myRigidbody.velocity.y);
+			playerMoving = true;
+			//lastMove = new Vector2 (joystick.Horizontal(), 0f);
+		}
+
+		if (joystick.Vertical () > 0.2f || joystick.Vertical () < -0.2f) {
+			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, joystick.Vertical() * moveSpeed);
+			playerMoving = true;
+			//lastMove = new Vector2 (0f, joystick.Vertical());
+		}
+
+		if (playerMoving){
+			lastMove = new Vector2 (joystick.Horizontal(), joystick.Vertical());
+		}
+
+		if(joystick.Horizontal () < 0.2f && joystick.Horizontal () > -0.2f){
+			myRigidbody.velocity = new Vector2 (0f, myRigidbody.velocity.y);
+		}
+		if(joystick.Vertical () < 0.2f && joystick.Vertical () > -0.2f){
+			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, 0f);
+		}
+
+		animator.SetFloat ("MoveX", joystick.Horizontal ());
+		animator.SetFloat ("MoveY", joystick.Vertical ());
+		animator.SetBool ("PlayerMoving", playerMoving);
+		animator.SetFloat ("LastMoveX", lastMove.x);
+		animator.SetFloat ("LastMoveY", lastMove.y);
 	}
 }

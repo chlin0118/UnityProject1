@@ -55,7 +55,7 @@
      <Compile Include="Assets\Scripts\LoadNewArea.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerStartPoint.cs" />
-     <Compile Include="Assets\Scripts\toutchTest.cs" />
+     <Compile Include="Assets\Scripts\TouchController.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\CircleObject.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\GameObjectExtensions.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\GPUInstancing.cs" />
@@ -81,6 +81,7 @@
      <None Include="Assets\Tiled2Unity\Prefabs\_ReadMe.txt" />
      <None Include="Assets\Tiled2Unity\Shaders\Tiled2Unity.cginc" />
      <None Include="Assets\Tiled2Unity\Tiled2Unity.export.txt" />
+     <None Include="Assets\Tiled2Unity\Imported\Map01.tiled2unity.xml" />
      <None Include="Assets\Tiled2Unity\Shaders\shaDepth.shader" />
      <None Include="Assets\Tiled2Unity\Shaders\shaDiffuseDepth.shader" />
      <None Include="Assets\Tiled2Unity\Materials\_ReadMe.txt" />
