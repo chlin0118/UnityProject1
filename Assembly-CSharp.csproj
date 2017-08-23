@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerStartPoint.cs" />
      <Compile Include="Assets\Scripts\RabbitController.cs" />
+     <Compile Include="Assets\Scripts\SaveLoadManager.cs" />
      <Compile Include="Assets\Scripts\TouchController.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\CircleObject.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\GameObjectExtensions.cs" />

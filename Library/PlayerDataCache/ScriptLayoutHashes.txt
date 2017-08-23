@@ -147,6 +147,6 @@ c8dbc393c50380219486cd322eb1d634 Assembly-CSharp.dll:.TouchController
 b6a4e0f46582e1b4ea27adb53405c4c7 Assembly-CSharp.dll:Tiled2Unity.SpriteDepthInMap
 d290070ecf091336e70150a7db25d112 Assembly-CSharp.dll:Tiled2Unity.ObjectLayer
 8a157185229bb104389e44798cd25a5f Assembly-CSharp.dll:.LoadNewArea
+71cf2d7aba98938a43ece69a9a69f338 Assembly-CSharp.dll:.RabbitController
 329bcbf88b3c0197d230f5b9ceb88333 Assembly-CSharp.dll:Tiled2Unity.TmxObject
 74bdfe3150293437bfa63a797afb4793 Assembly-CSharp.dll:.CameraController
-71cf2d7aba98938a43ece69a9a69f338 Assembly-CSharp.dll:.RabbitController

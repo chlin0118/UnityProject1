@@ -13,7 +13,7 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 	private Vector3 inputVector;
 
 	private static bool joystickExists;
-	private GameObject joystick;
+	private GameObject canvas;
 	PointerEventData eventData;
 
 	// Use this for initialization
@@ -23,14 +23,14 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 		bgImg.enabled = false;
 		joystickImg.enabled = false;
 
-		joystick = transform.parent.gameObject;
+		canvas = transform.parent.gameObject;
 
 		if (!joystickExists) {
 			joystickExists = true;
-			DontDestroyOnLoad (joystick);
+			DontDestroyOnLoad (canvas);
 
 		} else {
-			Destroy(joystick);
+			Destroy(canvas);
 		}
 
 	}

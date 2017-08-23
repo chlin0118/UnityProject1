@@ -128,4 +128,14 @@ public class PlayerController : MonoBehaviour {
 		animator.SetFloat ("LastMoveX", lastMove.x);
 		animator.SetFloat ("LastMoveY", lastMove.y);
 	}
+
+
+	public void Save(){
+		SaveLoadManager.SavePlayer (this);
+	}
+
+	public void Load(){
+		PlayerData data = SaveLoadManager.LoadPlayer ();
+		transform.position = new Vector3(data.playerPosX, data.playerPosY, data.playerPosZ);
+	}
 }
