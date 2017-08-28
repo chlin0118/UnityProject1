@@ -12,7 +12,7 @@ public static class SaveLoadManager {
 		FileStream stream = new FileStream (Application.persistentDataPath + "/player.sav", FileMode.Create);
 
 		PlayerData data = new PlayerData (player);
-
+		Debug.Log ("save: ");
 		bf.Serialize (stream, data);
 		stream.Close();
 	}

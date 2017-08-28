@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 	private static bool playerExists;
 
 	public string startPoint;
-	public TouchController joystick;
+	private TouchController joystick;
 
 	// Use this for initialization
 	void Start () {
