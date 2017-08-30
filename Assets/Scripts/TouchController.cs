@@ -112,14 +112,14 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 
 	public float Horizontal(){
 		if (inputVector.x != 0)
-			return inputVector.x;
+			return inputVector.normalized.x;
 		else
 			return 0;
 	}
 
 	public float Vertical(){
 		if (inputVector.y != 0)
-			return inputVector.y;
+			return inputVector.normalized.y;
 		else
 			return 0;
 	}
