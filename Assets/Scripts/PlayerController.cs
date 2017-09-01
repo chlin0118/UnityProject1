@@ -127,8 +127,21 @@ public class PlayerController : MonoBehaviour {
 		animator.SetBool ("PlayerMoving", playerMoving);
 		animator.SetFloat ("LastMoveX", lastMove.x);
 		animator.SetFloat ("LastMoveY", lastMove.y);
+
+		float angle = 0f;
+		if (joystick.Vertical () > 0.2f || joystick.Vertical () < -0.2f || joystick.Horizontal () > 0.2f || joystick.Horizontal () < -0.2f) {
+			Vector2 v2 = new Vector2 (joystick.Horizontal(), joystick.Vertical ());
+			angle = FindDegree (v2.y, v2.x);
+		}
+
+		animator.SetFloat ("Angle", angle);
 	}
 
+	public static float FindDegree(float y, float x){
+		float value = (Mathf.Atan2(y, x) / Mathf.PI) * 180f;
+		if(value < 0) value += 360f;
+		return value;
+	}
 
 	public void Save(){
 		SaveLoadManager.SavePlayer (this);
