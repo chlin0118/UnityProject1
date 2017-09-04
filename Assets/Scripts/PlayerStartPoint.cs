@@ -7,7 +7,8 @@ public class PlayerStartPoint : MonoBehaviour {
 	private PlayerController thePlayer;
 	private CameraController theCamera;
 
-	public Vector2 startDirection;
+	//public Vector2 startDirection;
+	public float startAngle;
 
 	public string pointName;
 
@@ -18,7 +19,8 @@ public class PlayerStartPoint : MonoBehaviour {
 
 		if (thePlayer.startPoint == pointName) {
 			thePlayer.transform.position = transform.position;
-			thePlayer.lastMove = startDirection;
+			//thePlayer.lastMove = startDirection;
+			thePlayer.lastAngle = startAngle;
 
 			theCamera = FindObjectOfType<CameraController> ();
 			theCamera.transform.position = new Vector3 (transform.position.x, transform.position.y, theCamera.transform.position.z);
