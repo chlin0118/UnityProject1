@@ -18,6 +18,7 @@ public class HurtEnemy : MonoBehaviour {
 
 		if (other.gameObject.tag == "Enemy") {
 			Destroy (other.gameObject);
+			Debug.Log ("attack enemy");
 		}
 	}
 }
