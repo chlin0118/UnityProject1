@@ -3229,6 +3229,7 @@ GameObject:
   - component: {fileID: 1570061969}
   - component: {fileID: 1570061968}
   - component: {fileID: 1570061972}
+  - component: {fileID: 1570061973}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3341,6 +3342,20 @@ MonoBehaviour:
   currentLevel: 0
   currentExp: 0
   toLevelUp: 000000001e000000320000005000000078000000c80000002c010000c20100008a02000084030000dc050000c4090000a00f00007017000028230000b0360000204e00003075000050c30000a0860100400d0300
+--- !u!114 &1570061973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1570061967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c31f957494db74996bb683818acae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expBar: {fileID: 241636001}
+  levelText: {fileID: 1676240547}
+  playerStatus: {fileID: 1570061972}
 --- !u!1 &1675901364
 GameObject:
   m_ObjectHideFlags: 0
