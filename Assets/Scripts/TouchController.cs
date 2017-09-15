@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler {
 
-	public GameObject backgroundImage;
+	//public GameObject backgroundImage;
 	//public GameObject joystickImage;
-	public Image bgImg;
-	public Image joystickImg;
+	private Image bgImg;
+	private Image joystickImg;
 	private Vector3 inputVector;
 
 	PointerEventData eventData;
 
 	// Use this for initialization
 	void Start () {
-		bgImg = backgroundImage.GetComponent<Image> ();
-		joystickImg = backgroundImage.transform.GetChild(0).GetComponent<Image>();
+		bgImg = transform.GetChild(0).GetComponent<Image> ();
+		joystickImg =  transform.GetChild(0).GetChild(0).GetComponent<Image>();
 		bgImg.enabled = false;
 		joystickImg.enabled = false;
 

@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour {
 
 	private Animator animator;
 	private Rigidbody2D myRigidbody;
-
+	public SceneController sceneController;
+	public TouchController joystick;
 
 	//private bool fingerHold = false;
 	//private Vector3 startPos;
@@ -16,16 +17,17 @@ public class PlayerController : MonoBehaviour {
 	//private float realSpeed;
 
 	private bool playerMoving;
-	public Vector2 lastMove;
+	//public Vector2 lastMove;
 	private static bool playerExists;
 
 	public string startPoint;
-	private TouchController joystick;
+	//private TouchController joystick;
 
 	private float angle;
 	private Vector2 movement;
 	public float lastAngle;
 
+	public GameObject currentEnemy;
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
@@ -33,14 +35,14 @@ public class PlayerController : MonoBehaviour {
 		//float height = Camera.main.orthographicSize * 2;
 		//float width = height * Camera.main.aspect;
 		//realSpeed = Screen.width / width * moveSpeed;
-		GameObject go = GameObject.Find("Touch");
-		joystick = go.GetComponent<TouchController> ();
+
 		if (!playerExists) {
 			playerExists = true;
 			DontDestroyOnLoad (gameObject);
 		} else {
 			Destroy(gameObject);
 		}
+
 		lastAngle = 270f;
 	}
 	
@@ -123,6 +125,14 @@ public class PlayerController : MonoBehaviour {
 		animator.SetBool ("PlayerMoving", playerMoving);
 		animator.SetFloat ("Angle", angle);
 		animator.SetFloat ("LastAngle", lastAngle);
+	}
+
+	void OnCollisionEnter2D(Collision2D other) {
+
+		if(other.gameObject.tag == "Enemy") {
+			StartCoroutine(sceneController.loadBattleScene());
+			currentEnemy = other.gameObject;
+		}
 	}
 
 	public static float FindDegree(float y, float x){
