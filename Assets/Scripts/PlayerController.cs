@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody2D myRigidbody;
 
 
-	private bool fingerHold = false;
-	private Vector3 startPos;
-	private Vector2 touchPos;
-	private Vector3 endPos;
+	//private bool fingerHold = false;
+	//private Vector3 startPos;
+	//private Vector2 touchPos;
+	//private Vector3 endPos;
 	//private float realSpeed;
 
 	private bool playerMoving;
@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour {
 
 	public string startPoint;
 	private TouchController joystick;
+
+	private float angle;
+	private Vector2 movement;
+	public float lastAngle;
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			Destroy(gameObject);
 		}
-			
+		lastAngle = 270f;
 	}
 	
 	// Update is called once per frame
@@ -96,39 +100,36 @@ public class PlayerController : MonoBehaviour {
 		animator.SetBool ("PlayerMoving", fingerHold);*/
 
 		playerMoving = false;
-
-		//Debug.Log ("joystick.Horizontal (): " + joystick.Horizontal ());
-
-		if (joystick.Horizontal () > 0.2f || joystick.Horizontal () < -0.2f) {
-			myRigidbody.velocity = new Vector2 (joystick.Horizontal() * moveSpeed, myRigidbody.velocity.y);
+		movement = new Vector2 (joystick.Horizontal(), joystick.Vertical());
+		if ((movement.x > 0.2f || movement.x < -0.2f) || (movement.y > 0.2f || movement.y < -0.2f)) {
+			myRigidbody.velocity = new Vector2 (movement.x, movement.y) * moveSpeed;
 			playerMoving = true;
-			//lastMove = new Vector2 (joystick.Horizontal(), 0f);
-		}
 
-		if (joystick.Vertical () > 0.2f || joystick.Vertical () < -0.2f) {
-			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, joystick.Vertical() * moveSpeed);
-			playerMoving = true;
-			//lastMove = new Vector2 (0f, joystick.Vertical());
+			angle = FindDegree (movement.y, movement.x);
 		}
-
+			
 		if (playerMoving){
-			lastMove = new Vector2 (joystick.Horizontal(), joystick.Vertical());
+			lastAngle = angle;
 		}
 
-		if(joystick.Horizontal () < 0.2f && joystick.Horizontal () > -0.2f){
-			myRigidbody.velocity = new Vector2 (0f, myRigidbody.velocity.y);
-		}
-		if(joystick.Vertical () < 0.2f && joystick.Vertical () > -0.2f){
-			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, 0f);
+		if(movement.x < 0.2f && movement.x > -0.2f && movement.y < 0.2f && movement.y > -0.2f){
+			myRigidbody.velocity = new Vector2 (0f, 0f);
 		}
 
-		animator.SetFloat ("MoveX", joystick.Horizontal ());
-		animator.SetFloat ("MoveY", joystick.Vertical ());
+		//animator.SetFloat ("MoveX", joystick.Horizontal ());
+		//animator.SetFloat ("MoveY", joystick.Vertical ());
+		//animator.SetFloat ("LastMoveX", lastMove.x);
+		//animator.SetFloat ("LastMoveY", lastMove.y);
 		animator.SetBool ("PlayerMoving", playerMoving);
-		animator.SetFloat ("LastMoveX", lastMove.x);
-		animator.SetFloat ("LastMoveY", lastMove.y);
+		animator.SetFloat ("Angle", angle);
+		animator.SetFloat ("LastAngle", lastAngle);
 	}
 
+	public static float FindDegree(float y, float x){
+		float value = (Mathf.Atan2(y, x) / Mathf.PI) * 180f;
+		if(value < 0) value += 360f;
+		return value;
+	}
 
 	public void Save(){
 		SaveLoadManager.SavePlayer (this);
