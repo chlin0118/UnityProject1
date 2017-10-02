@@ -72,17 +72,17 @@ public class RabbitController : MonoBehaviour {
 		animator.SetFloat ("LastMoveX", lastMove.x);
 		animator.SetFloat ("LastMoveY", lastMove.y);
 
-		if(reloading) {
+		/*if(reloading) {
 			waitToReload -= Time.deltaTime;
 			if(waitToReload <= 0) {
 				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 				thePlayer.SetActive (true);
 				thePlayer.transform.position = new Vector3 (0,0,0);
 			}
-		}
+		}*/
 	}
 
-	void OnCollisionEnter2D(Collision2D other) {
+	/*void OnCollisionEnter2D(Collision2D other) {
 		
 		if(other.gameObject.name == "Player") {
 			//Destroy (other.gameObject);
@@ -91,6 +91,6 @@ public class RabbitController : MonoBehaviour {
 			reloading = true;
 			thePlayer = other.gameObject;
 		}
-	}
+	}*/
 
 }
