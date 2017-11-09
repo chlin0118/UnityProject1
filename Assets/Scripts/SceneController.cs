@@ -23,7 +23,7 @@ public class SceneController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("active:" + SceneManager.GetActiveScene().name);
+		
 	}
 
 	//進入戰鬥場景(由playerController的OnCollisionEnter2D())
@@ -62,6 +62,7 @@ public class SceneController : MonoBehaviour {
 	void OnActiveSceneChanged(Scene previousScene, Scene nextScene)
 	{
 		Debug.LogFormat("[previousScene]{0} [nextScene]{1}", previousScene.buildIndex, nextScene.buildIndex);
+		Debug.Log ("active:" + SceneManager.GetActiveScene().name);
 		if (previousScene.name == "test") {
 			foreach(GameObject go in gameObjectArray)
 			{

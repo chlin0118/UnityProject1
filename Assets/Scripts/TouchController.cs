@@ -72,7 +72,7 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 				, inputVector.y * (bgImg.rectTransform.sizeDelta.y / 4));
 
 				//Debug.Log ("inputVector: " + inputVector);
-				Debug.Log ("ped: " + ped.pointerId);
+				//Debug.Log ("ped: " + ped.pointerId);
 			}
 		}
 	}
@@ -81,10 +81,17 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 		if (ped.pointerId == 0 || ped.pointerId == -1) {
 			bgImg.enabled = true;
 			joystickImg.enabled = true;
-			bgImg.rectTransform.anchoredPosition = new Vector3 (ped.position.x - bgImg.rectTransform.sizeDelta.x * 0.5f
-			, ped.position.y - bgImg.rectTransform.sizeDelta.y * 0.5f);
+
+			Debug.Log ("ped.position: " + ped.position);
+			Debug.Log ("bgImg.rectTransform.anchoredPosition: " + bgImg.rectTransform.anchoredPosition);
+			Debug.Log ("canvas.scaleFactor: " + bgImg.canvas.scaleFactor);
 		
-			Debug.Log ("ped ID: " + ped.pointerId);
+			bgImg.rectTransform.anchoredPosition = new Vector3 (ped.position.x / bgImg.canvas.scaleFactor - bgImg.rectTransform.sizeDelta.x * 0.5f
+				, ped.position.y / bgImg.canvas.scaleFactor - bgImg.rectTransform.sizeDelta.y * 0.5f);
+			
+			Debug.Log ("bgImg.rectTransform.anchoredPosition: " + bgImg.rectTransform.anchoredPosition);
+
+			//Debug.Log ("ped ID: " + ped.pointerId);
 			eventData = ped;
 			OnDrag (ped);
 		}
