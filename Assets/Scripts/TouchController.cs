@@ -85,7 +85,7 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 			Debug.Log ("ped.position: " + ped.position);
 			Debug.Log ("bgImg.rectTransform.anchoredPosition: " + bgImg.rectTransform.anchoredPosition);
 			Debug.Log ("canvas.scaleFactor: " + bgImg.canvas.scaleFactor);
-		
+
 			bgImg.rectTransform.anchoredPosition = new Vector3 (ped.position.x / bgImg.canvas.scaleFactor - bgImg.rectTransform.sizeDelta.x * 0.5f
 				, ped.position.y / bgImg.canvas.scaleFactor - bgImg.rectTransform.sizeDelta.y * 0.5f);
 			
