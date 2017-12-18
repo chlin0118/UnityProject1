@@ -47,8 +47,8 @@ public class QAUI : MonoBehaviour {
 		characterBlood = Random.Range (50, 100);
 		monsterBlood = Random.Range (20, 50);
 
-		charaBlood.text = "血量：" + characterBlood;
-		monBlood.text = "血量：" + monsterBlood;
+		charaBlood.text = characterBlood+"/"+characterBlood;
+		monBlood.text = monsterBlood+"/" + monsterBlood;
 
 		characterSlider.maxValue = characterBlood;
 		characterSlider.value = characterBlood;
@@ -127,10 +127,10 @@ public class QAUI : MonoBehaviour {
 
 		if (btn1.CompareTag ("answer")) {
 			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text = "血量：" + monsterBlood;
+			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 			monsterSlider.value = monsterBlood;
 			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = "血量：" + characterBlood;
+			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
 				Type1Problem ();
@@ -153,10 +153,10 @@ public class QAUI : MonoBehaviour {
 		
 		if (btn2.CompareTag ("answer")) {
 			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text = "血量：" + monsterBlood;
+			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 			monsterSlider.value = monsterBlood;
 			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = "血量：" + characterBlood;
+			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
 				Type1Problem ();
@@ -177,10 +177,10 @@ public class QAUI : MonoBehaviour {
 	public void CheckAnswerBtn3(){
 		if (btn3.CompareTag ("answer")) {
 			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text = "血量：" + monsterBlood;
+			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 			monsterSlider.value = monsterBlood;
 			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = "血量：" + characterBlood;
+			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
 				Type1Problem ();
@@ -200,10 +200,10 @@ public class QAUI : MonoBehaviour {
 	public void CheckAnswerBtn4(){
 		if (btn4.CompareTag ("answer")) {
 			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text = "血量：" + monsterBlood;
+			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 			monsterSlider.value = monsterBlood;
 			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = "血量：" + characterBlood;
+			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
 				Type1Problem ();
