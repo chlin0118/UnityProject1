@@ -9,6 +9,8 @@ public class test : MonoBehaviour {
 	private float perSecond = 0;
 	private bool isUnloading;
 
+	public SceneController sceneController;
+
 	void Awake(){
 		Debug.Log ("test: awake");
 	}
@@ -34,7 +36,13 @@ public class test : MonoBehaviour {
 			if (perSecond == 3) {
 				Debug.Log ("enemy = " + thePlayer.currentEnemy.name);
 				isUnloading = true;
-				StartCoroutine ("Unload");
+				//StartCoroutine ("Unload");
+
+				SceneController sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+
+				if (sceneController != null) {
+					StartCoroutine (sceneController.unLoadBattleScene ("test"));
+				}
 			}
 		}
 	}

@@ -69,6 +69,10 @@ public class QAUI : MonoBehaviour {
 			timerText.text = "時間：" + (AnswerCountDownTime - timer) + "s";
 		}
 
+		if (monsterBlood <= 0) {
+			Debug.Log ("win:");
+			win ();
+		}
 		
 	}
 
@@ -220,5 +224,14 @@ public class QAUI : MonoBehaviour {
 			}
 		}
 			
+	}
+
+	void win(){
+		SceneController sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+
+		if (sceneController != null) {
+			StartCoroutine (sceneController.unLoadBattleScene ("QA"));
+		}
+
 	}
 }
