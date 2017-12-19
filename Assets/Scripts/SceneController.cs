@@ -18,6 +18,7 @@ public class SceneController : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 			SceneManager.sceneUnloaded += OnUnloadBattleScene;
 			SceneManager.activeSceneChanged += OnActiveSceneChanged;
+			SceneManager.sceneLoaded += OnLoadBattleScene;
 		} else {
 			Destroy(gameObject);
 		}
@@ -84,6 +85,13 @@ public class SceneController : MonoBehaviour {
 
 	void OnUnloadBattleScene(Scene scene){
 		Debug.LogFormat ("Scene : {0}", scene.name);
+	}
+
+	void OnLoadBattleScene(Scene scene, LoadSceneMode mode){
+		Debug.Log ("OnLoadBattleScene: " + scene.name);
+		if (scene.name == "QA") {
+			
+		}
 	}
 
 	void OnActiveSceneChanged(Scene previousScene, Scene nextScene)

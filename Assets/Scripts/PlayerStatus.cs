@@ -25,7 +25,7 @@ public class PlayerStatus : MonoBehaviour {
 		}
 		secondsCount += Time.deltaTime;	
 		if (secondsCount >= perSecond) {
-			Debug.Log (Time.time);
+			//Debug.Log (Time.time);
 			currentExp += 5;
 			perSecond++;
 		}
