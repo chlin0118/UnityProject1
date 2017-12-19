@@ -6,7 +6,7 @@ using UnityEngine;
 public class QAProblemGenerator : MonoBehaviour {
 
 	const int PUREarithmetic = 1;//type1純算數
-	const int APPLICATIONformula = 2;//type2應用題列算式
+	const int APPLICATIONformula = 2;//type2應用題列式
 	const int APPLICATIONarithmetic = 3;//type3應用題算數
 
 
@@ -103,7 +103,20 @@ public class Problems{
 		const int APPLICATIONformula = 2;//type2應用題列算式
 		const int APPLICATIONarithmetic = 3;//type3應用題算數
 
+		switch (type) {
+		case PUREarithmetic:
+			return answer.ToString ("0.00");
+			break;
+		case APPLICATIONformula:
+			return answer.ToString ("0.00");
+			break;
+		case APPLICATIONarithmetic:
+			return answer.ToString ("0.00");
+			break;
+		} 
 		return answer.ToString ("0.00");
+			
+		
 		 
 	}
 }
