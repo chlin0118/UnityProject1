@@ -104,9 +104,15 @@ public class SceneController : MonoBehaviour {
 		}
 
 		if (previousScene.name == "QA") {
-			
+			player.currentEnemy.GetComponent<MonsterStatus> ().setHasBeenBattled ();
 			foreach (GameObject go in rootGameObjectOfSpecificScene) {
-				if (go != null && go != player.currentEnemy) {
+				if (go.tag == "Enemy") {
+					MonsterStatus ms = go.GetComponent<MonsterStatus> ();
+					if (ms.getHasBeenBattled ()) {
+						continue;
+					}
+				}
+				if (go != null) {
 					go.SetActive (true);
 				}
 			}
