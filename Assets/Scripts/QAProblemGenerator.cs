@@ -68,7 +68,7 @@ public class Problems{
 	
 		if (type == 1) {//小數除整數
 
-			float divisor = Random.Range(1.0f, 10.0f);
+			float divisor = Random.Range(2.0f, 10.0f);
 			divisor = Mathf.Round(divisor);
 
 			float dividend = answer * divisor;

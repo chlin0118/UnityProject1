@@ -17,7 +17,9 @@ public class QAUI : MonoBehaviour {
 	public Text monBlood;
 	public Text questionArea;
 	public Text answerArea;
+	public Text promptArea;
 	public Text roundPrompt;
+
 	public Button btn1;
 	public Button btn2;
 	public Button btn3;
@@ -29,6 +31,8 @@ public class QAUI : MonoBehaviour {
 
 	public Slider characterSlider;
 	public Slider monsterSlider;
+	public Slider timerSlider;
+
 
 
 	int btnNo;
@@ -39,7 +43,7 @@ public class QAUI : MonoBehaviour {
 	const int PUREarithmetic = 1;//type1純算數
 	const int APPLICATIONformula = 2;//type2應用題列算式
 	const int APPLICATIONarithmetic = 3;//type3應用題算數
-	const int AnswerCountDownTime = 30;//倒數時間
+	const int AnswerCountDownTime = 60;//倒數時間
 
 
 	// Use this for initialization
@@ -54,6 +58,9 @@ public class QAUI : MonoBehaviour {
 		characterSlider.value = characterBlood;
 		monsterSlider.maxValue = monsterBlood;
 		monsterSlider.value = monsterBlood;
+		timerSlider.maxValue = AnswerCountDownTime;
+		timerSlider.value = AnswerCountDownTime;
+
 
 		Type1Problem ();
 
@@ -62,12 +69,12 @@ public class QAUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (isAnswering) {
-			timer_f += Time.deltaTime;
-			timer = (int)timer_f;
 
-			timerText.text = "時間：" + (AnswerCountDownTime - timer) + "s";
-		}
+		timer_f += Time.deltaTime;
+		timer = (int)timer_f;
+
+		timerSlider.value = AnswerCountDownTime - timer;
+		timerText.text =  (AnswerCountDownTime - timer)+"/"+ timerSlider.maxValue+"s";
 
 		if (monsterBlood <= 0) {
 			Debug.Log ("win:");
@@ -77,7 +84,6 @@ public class QAUI : MonoBehaviour {
 	}
 
 	void Type1Problem(){
-		isAnswering = true;
 		timer_f = 0;
 		answerNo = 0;
 
@@ -136,6 +142,7 @@ public class QAUI : MonoBehaviour {
 			characterBlood = characterBlood - Random.Range (1, 5);
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
+
 			if (monsterBlood > 0) {
 				Type1Problem ();
 			}
@@ -147,6 +154,7 @@ public class QAUI : MonoBehaviour {
 			btn1.interactable = false;
 			answerNo++;
 			if (answerNo == 1) {
+				//promptArea.text = ;
 			}else if(answerNo == 2){
 			}else if(answerNo == 3){
 			}
