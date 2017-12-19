@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 319528553}
   - component: {fileID: 319528555}
   - component: {fileID: 319528554}
+  - component: {fileID: 319528556}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Enemy
@@ -583,6 +584,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &319528556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 319528549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &323140851
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +608,7 @@ GameObject:
   - component: {fileID: 323140854}
   - component: {fileID: 323140853}
   - component: {fileID: 323140852}
+  - component: {fileID: 323140858}
   m_Layer: 0
   m_Name: Rabbit (3)
   m_TagString: Enemy
@@ -728,6 +741,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323140858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 323140851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &334724734
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +765,7 @@ GameObject:
   - component: {fileID: 334724737}
   - component: {fileID: 334724736}
   - component: {fileID: 334724735}
+  - component: {fileID: 334724741}
   m_Layer: 0
   m_Name: Rabbit (4)
   m_TagString: Enemy
@@ -873,6 +898,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &334724741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 334724734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &352291325 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1250979134490386, guid: 1af22963f6cd7494ca5c75907839eb4b,
@@ -1458,6 +1494,7 @@ GameObject:
   - component: {fileID: 827693013}
   - component: {fileID: 827693012}
   - component: {fileID: 827693011}
+  - component: {fileID: 827693017}
   m_Layer: 0
   m_Name: Rabbit (5)
   m_TagString: Enemy
@@ -1590,6 +1627,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827693017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 827693010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1051801459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3091,6 +3139,7 @@ GameObject:
   - component: {fileID: 1847184005}
   - component: {fileID: 1847184004}
   - component: {fileID: 1847184003}
+  - component: {fileID: 1847184009}
   m_Layer: 0
   m_Name: Rabbit (2)
   m_TagString: Enemy
@@ -3223,6 +3272,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847184009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1847184002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1936665492
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,6 +3296,7 @@ GameObject:
   - component: {fileID: 1936665495}
   - component: {fileID: 1936665494}
   - component: {fileID: 1936665493}
+  - component: {fileID: 1936665499}
   m_Layer: 0
   m_Name: Rabbit (1)
   m_TagString: Enemy
@@ -3368,6 +3429,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1936665499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1936665492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1977967992
 GameObject:
   m_ObjectHideFlags: 0
