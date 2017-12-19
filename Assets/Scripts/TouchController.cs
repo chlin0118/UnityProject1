@@ -39,6 +39,11 @@ public class TouchController : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 	{
 		//Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
 		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+
+		if (eventData != null) {
+			eventData.pointerDrag = null;
+			OnPointerUp (eventData);
+		}
 	}
 
 	void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)

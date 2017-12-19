@@ -7,7 +7,9 @@ public class SceneController : MonoBehaviour {
 
 	private static bool sceneControllerExists;
 
-	private GameObject[] gameObjectArray;
+	private GameObject[] rootGameObjectOfSpecificScene;
+
+	public PlayerController player;
 
 	// Use this for initialization
 	void Start () {
@@ -37,16 +39,25 @@ public class SceneController : MonoBehaviour {
 			Debug.Log ("async.progress: " + async.progress);
 		}
 
-		GameObject[] rootGameObjectOfSpecificScene = SceneManager.GetActiveScene ().GetRootGameObjects();
+		//暫時隱藏(SetActive (false))原本場景的物件
+		rootGameObjectOfSpecificScene = SceneManager.GetActiveScene ().GetRootGameObjects();
 		foreach(GameObject go in rootGameObjectOfSpecificScene) {
 			go.SetActive (false);
 		}
 
-		//暫時隱藏(SetActive (false))原本場景的物件
-		/*gameObjectArray = GameObject.FindGameObjectsWithTag ("Enemy");
-		foreach(GameObject go in gameObjectArray) {
-			go.SetActive (false);
-		}*/
+		//暫時隱藏Dont Destroy On Load 下的部分物件
+		foreach(GameObject go in gameObject.scene.GetRootGameObjects()) {
+			if (go.name == "Player") {
+				go.GetComponent<SpriteRenderer>().enabled = false;
+				//player 子物件隱藏
+				foreach(SpriteRenderer  sr in go.GetComponentsInChildren<SpriteRenderer>()) {
+					sr.enabled = false;
+				}
+			}
+			else if (go.name == "Canvas") {
+				go.SetActive (false);
+			}
+		}
 
 		async.allowSceneActivation = true;
 
@@ -58,14 +69,7 @@ public class SceneController : MonoBehaviour {
 		//AllowSceneActivation = true 之後，等到下個Scene.isLoaded等於true，才能SetActiveScene()
 		SceneManager.SetActiveScene (SceneManager.GetSceneByName(sceneName));
 		Debug.Log ("loaddddddddddd ");
-
-		var go1 = new GameObject("objectForFindDDOL");
-		DontDestroyOnLoad(go1);
-		foreach(GameObject go in go1.scene.GetRootGameObjects()) {
-			if (go.name != "SceneController") {
-				go.SetActive (false);
-			}
-		}
+	
 
 	}
 
@@ -84,24 +88,33 @@ public class SceneController : MonoBehaviour {
 
 	void OnActiveSceneChanged(Scene previousScene, Scene nextScene)
 	{
-		Debug.LogFormat("[previousScene]{0} [nextScene]{1}", previousScene.buildIndex, nextScene.buildIndex);
-		Debug.Log ("active:" + SceneManager.GetActiveScene().name);
+		Debug.LogFormat ("[previousScene]{0} [nextScene]{1}", previousScene.buildIndex, nextScene.buildIndex);
+		Debug.Log ("active:" + SceneManager.GetActiveScene ().name);
+
+		if (nextScene.name == "QA") {
+			
+		}
 
 		if (previousScene.name == "QA") {
-			/*GameObject[] rootGameObjectOfSpecificScene = SceneManager.GetActiveScene ().GetRootGameObjects();
-			foreach(GameObject go in rootGameObjectOfSpecificScene) {
-				go.SetActive (true);
-			}*/
-
-			/*var go1 = new GameObject("objectForFindDDOL");
-			DontDestroyOnLoad(go1);
-			foreach(GameObject go in go1.scene.GetRootGameObjects()) {
-				if (go.name != "SceneController") {
+			
+			foreach (GameObject go in rootGameObjectOfSpecificScene) {
+				if (go != null && go != player.currentEnemy) {
 					go.SetActive (true);
 				}
-			}*/
+			}
+			foreach(GameObject go in gameObject.scene.GetRootGameObjects()) {
+				if (go.name == "Player") {
+					go.GetComponent<SpriteRenderer>().enabled = true;
+					//player 子物件隱藏
+					foreach(SpriteRenderer  sr in go.GetComponentsInChildren<SpriteRenderer>()) {
+						sr.enabled = true;
+					}
+				}
+				else if (go.name == "Canvas") {
+					go.SetActive (true);
+				}
+			}
 		}
+
 	}
-
-
 }

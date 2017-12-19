@@ -35,7 +35,7 @@ public class RabbitController : MonoBehaviour {
 		timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f,timeBetweenMove * 1.25f) ;
 		timeToMoveCounter = Random.Range(timeToMove * 0.75f,timeToMove * 1.25f) ;
 
-		//lastMove = new Vector2 (0, -1);
+
 	}
 	
 	// Update is called once per frame
@@ -92,5 +92,10 @@ public class RabbitController : MonoBehaviour {
 			thePlayer = other.gameObject;
 		}
 	}*/
+
+	void OnEnable(){
+		lastMove = new Vector2 (Random.Range(0,3) - 1, Random.Range(0,3) - 1);
+		Debug.Log("lastMove " + lastMove);
+	}
 
 }
