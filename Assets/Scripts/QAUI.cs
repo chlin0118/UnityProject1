@@ -129,28 +129,28 @@ public class QAUI : MonoBehaviour {
 
 		if (btnNo%4 == 0) {
 			Text1.text = p1.getAnswer ();
-			Text2.text = Random.Range (0.1f, 100.0f).ToString("0.00");
-			Text3.text = Random.Range (0.1f, 100.0f).ToString("0.00");
-			Text4.text = Random.Range (0.1f, 100.0f).ToString("0.00");
+			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
+			Text4.text = (getFloat(answer,0.00f)+1).ToString("0.00");
 			btn1.tag = "answer";
 
 		} else if (btnNo%4 == 1) {
-			Text1.text = Random.Range (0.1f, 100.0f).ToString("0.00");
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
 			Text2.text = p1.getAnswer ();
-			Text3.text = Random.Range (0.1f, 100.0f).ToString("0.00");
-			Text4.text = Random.Range (0.1f, 100.0f).ToString("0.00");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
+			Text4.text = (getFloat(answer,0.00f)+2).ToString("0.00");
 			btn2.tag = "answer";
 
 		} else if (btnNo%4 == 2) {
-			Text1.text = Random.Range (0.1f, 100.0f).ToString("0.00");
-			Text2.text = Random.Range (0.1f, 100.0f).ToString("0.00");
+			Text1.text = (getFloat(answer,0.00f)*10).ToString("0.00");
+			Text2.text = (getFloat(answer,0.00f)+1).ToString("0.00");
 			Text3.text = p1.getAnswer ();
-			Text4.text = Random.Range (0.1f, 100.0f).ToString("0.00");
+			Text4.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
 			btn3.tag = "answer";
 		} else if (btnNo%4 == 3) {
-			Text1.text = Random.Range (0.1f, 100.0f).ToString("0.00");
-			Text2.text = Random.Range (0.1f, 100.0f).ToString("0.00");
-			Text3.text = Random.Range (0.1f, 100.0f).ToString("0.00");
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
+			Text2.text = (getFloat(answer,0.00f)+2).ToString("0.00");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
 			Text4.text = p1.getAnswer ();
 			btn4.tag = "answer";
 		}
@@ -304,5 +304,12 @@ public class QAUI : MonoBehaviour {
 
 	public void setType(int type){
 		quationType = type;
+	}
+
+	private float getFloat(string stringValue, float defaultValue)
+	{
+		float result = defaultValue;
+		float.TryParse(stringValue, out result);
+		return result;
 	}
 }

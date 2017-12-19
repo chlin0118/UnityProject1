@@ -46,7 +46,6 @@ public class Problems{
 
 	}
 
-
 	public Problems(int type,string[] statements,double[] args){//type2&type3
 		this.type = type;
 		this.argc = args.Length;
@@ -69,11 +68,13 @@ public class Problems{
 		if (type == 1) {//小數除整數
 
 			float divisor = Random.Range(2.0f, 10.0f);
-			divisor = Mathf.Round(divisor);
+			//divisor = Mathf.Round(divisor);
+			string div = divisor.ToString("0.0");
+			float divisor1 = getFloat (div, 0.0f);
 
-			float dividend = answer * divisor;
+			float dividend = answer * divisor1;
 
-			finalProblem = dividend.ToString ("0.00") + "÷" + divisor + "=" ;//reset final problem area
+			finalProblem = dividend.ToString ("0.00") + "÷" + divisor1 + "=" ;//reset final problem area
 
 			return finalProblem;
 		
@@ -104,6 +105,7 @@ public class Problems{
 		const int APPLICATIONarithmetic = 3;//type3應用題算數
 
 		switch (type) {
+
 		case PUREarithmetic:
 			return answer.ToString ("0.00");
 			break;
@@ -118,5 +120,12 @@ public class Problems{
 			
 		
 		 
+	}
+
+	private float getFloat(string stringValue, float defaultValue)
+	{
+		float result = defaultValue;
+		float.TryParse(stringValue, out result);
+		return result;
 	}
 }
