@@ -45,6 +45,8 @@ public class QAUI : MonoBehaviour {
 	const int APPLICATIONarithmetic = 3;//type3應用題算數
 	const int AnswerCountDownTime = 60;//倒數時間
 
+	public int quationType = 1;//設定題目type
+
 
 	// Use this for initialization
 	void Start () {
@@ -58,11 +60,11 @@ public class QAUI : MonoBehaviour {
 		characterSlider.value = characterBlood;
 		monsterSlider.maxValue = monsterBlood;
 		monsterSlider.value = monsterBlood;
+
 		timerSlider.maxValue = AnswerCountDownTime;
 		timerSlider.value = AnswerCountDownTime;
 
-
-		Type1Problem ();
+		startProblem (quationType);
 
 
 	}
@@ -80,18 +82,40 @@ public class QAUI : MonoBehaviour {
 			Debug.Log ("win:");
 			win ();
 		}
-		
+
 	}
 
-	void Type1Problem(){
+	public void startProblem(int type){
+		switch (type) {
+		case PUREarithmetic:
+			Type1Problem ();
+			break;
+		case APPLICATIONformula:
+			Type2Problem ();
+			break;
+		case APPLICATIONarithmetic:
+			
+			break;
+		} 
+
+	}
+
+	void Type1Problem(){//純數運算
 		timer_f = 0;
 		answerNo = 0;
 
 		Problems p1 = new Problems(PUREarithmetic);
 		roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
+		questionArea.fontSize = 79;
 		questionArea.text = p1.getFinalProblem ();
 		answerArea.text = "答案：" + p1.getAnswer();
 		answer = p1.getAnswer();
+
+		btn1.GetComponent<RectTransform> ().sizeDelta = new Vector2 (480,150);
+		btn3.GetComponent<RectTransform> ().sizeDelta = new Vector2 (480,150);
+		btn2.gameObject.SetActive(true);
+		btn4.gameObject.SetActive(true);
+
 		btn1.tag = "options";
 		btn1.interactable = true;
 		btn2.tag = "options";
@@ -133,6 +157,41 @@ public class QAUI : MonoBehaviour {
 
 	}
 
+	void Type2Problem(){//列式
+		timer_f = 0;
+		answerNo = 0;
+
+		Problems p1 = new Problems(APPLICATIONformula);
+		//roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
+		questionArea.fontSize = 60;
+		questionArea.text = "老師把 14 公斤重的糖果平分給 200 個小朋友，每個小朋友可得幾公斤重的糖果？";
+		answerArea.text = "答案：14÷200" ;
+		answer = "14÷200";
+		btn1.tag = "options";
+		btn1.interactable = true;
+		btn3.tag = "options";
+		btn3.interactable = true;
+
+		btn1.GetComponent<RectTransform> ().sizeDelta = new Vector2 (1000,150);
+		btn3.GetComponent<RectTransform> ().sizeDelta = new Vector2 (1000,150);
+		btn2.gameObject.SetActive(false);
+		btn4.gameObject.SetActive(false);
+		btnNo = Random.Range (0,100);
+
+		if (btnNo%2 == 0) {
+			Text1.text = answer;
+			Text3.text = "200÷14";
+			btn1.tag = "answer";
+
+		} else if (btnNo%2 == 1) {
+			Text1.text = "1.05÷15";
+			Text3.text = answer;
+			btn3.tag = "answer";
+
+		} 
+
+	}
+
 	public void CheckAnswerBtn1(){
 
 		if (btn1.CompareTag ("answer")) {
@@ -144,7 +203,7 @@ public class QAUI : MonoBehaviour {
 			characterSlider.value = characterBlood;
 
 			if (monsterBlood > 0) {
-				Type1Problem ();
+				startProblem (quationType);
 			}
 			
 			//else-結束答題
@@ -171,7 +230,7 @@ public class QAUI : MonoBehaviour {
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
-				Type1Problem ();
+				startProblem (quationType);
 			}
 
 			//else-結束答題
@@ -195,7 +254,7 @@ public class QAUI : MonoBehaviour {
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
-				Type1Problem ();
+				startProblem (quationType);
 			}
 
 			//else-結束答題
@@ -218,7 +277,7 @@ public class QAUI : MonoBehaviour {
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 			if (monsterBlood > 0) {
-				Type1Problem ();
+				startProblem (quationType);
 			}
 
 			//else-結束答題
@@ -241,5 +300,9 @@ public class QAUI : MonoBehaviour {
 			StartCoroutine (sceneController.unLoadBattleScene ("QA"));
 		}
 
+	}
+
+	public void setType(int type){
+		quationType = type;
 	}
 }

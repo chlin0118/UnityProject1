@@ -90,7 +90,7 @@ public class SceneController : MonoBehaviour {
 	void OnLoadBattleScene(Scene scene, LoadSceneMode mode){
 		Debug.Log ("OnLoadBattleScene: " + scene.name);
 		if (scene.name == "QA") {
-			
+			FindObjectOfType<QAUI> ().setType(2);
 		}
 	}
 
