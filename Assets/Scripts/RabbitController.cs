@@ -95,7 +95,7 @@ public class RabbitController : MonoBehaviour {
 
 	void OnEnable(){
 		lastMove = new Vector2 (Random.Range(0,3) - 1, Random.Range(0,3) - 1);
-		Debug.Log("lastMove " + lastMove);
+		//Debug.Log("lastMove " + lastMove);
 	}
 
 }

@@ -6,6 +6,10 @@ public class MonsterStatus : MonoBehaviour {
 
 	private bool hasBeenBattled = false;
 
+	public int health;
+	public int damage;
+	public int expToGive;
+
 	// Use this for initialization
 	void Start () {
 		

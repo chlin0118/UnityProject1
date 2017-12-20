@@ -23,12 +23,12 @@ public class PlayerStatus : MonoBehaviour {
 		if (currentExp >= toLevelUp [currentLevel]) {
 			currentLevel++;
 		}
-		secondsCount += Time.deltaTime;	
+		/*secondsCount += Time.deltaTime;	
 		if (secondsCount >= perSecond) {
 			//Debug.Log (Time.time);
 			currentExp += 5;
 			perSecond++;
-		}
+		}*/
 	}
 		
 	public void AddExperience(int experienceToAdd){
