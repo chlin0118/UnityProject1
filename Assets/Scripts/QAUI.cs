@@ -8,9 +8,14 @@ public class QAUI : MonoBehaviour {
 
 	public GameObject playerInFight;
 	Animator animatorOfPlayer;
+	public GameObject monsterInFight;
+	Animator animatorOfMonster;
+	public GameObject animImages;
+	Animator animatorOfAnimImages;
 
-	int gameState = 1;
-	const int WaitforHitButton = 1; 
+	int gameState = 0;
+	const int WaitforHitButton = 0; 
+	const int YesOrNo = 1;
 	const int PlayerAnimating = 2;
 	const int MonsterAnimating = 3;
 	const int BattleEnd = 4;
@@ -61,7 +66,8 @@ public class QAUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animatorOfPlayer = playerInFight.GetComponent<Animator> ();
-
+		animatorOfAnimImages = animImages.GetComponent<Animator> ();
+		animatorOfMonster = monsterInFight.GetComponent<Animator> ();
 
 		characterBlood = Random.Range (50, 100);
 		monsterBlood = Random.Range (20, 50);
@@ -98,66 +104,86 @@ public class QAUI : MonoBehaviour {
 		}
 
 		Debug.Log ("gameState: " + gameState);
-	
+
 		switch (gameState) {
-			//等待玩家按按鈕
-			case WaitforHitButton:
-				if (waiting){
-					
-				} 
-				if (!waiting){
-					animatorOfPlayer.Play ("PlayerF01_attack");
-					gameState = PlayerAnimating;
-					waiting = true;
-				}
-				break;
+		//等待玩家按按鈕
+		case WaitforHitButton:
+			if (waiting){
 
-			case PlayerAnimating:
-				//等待玩家攻擊動畫完畢
-				if (waiting){
-					if (animatorOfPlayer.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
-						waiting = false;
-					}
-				}
-				//玩家攻擊動畫完畢要做的事
-				if (!waiting){
-					gameState = MonsterAnimating;
-					waiting = true;
-				}
-				break;
+			} 
+			if (!waiting){
+				animatorOfAnimImages.Play ("Correct");
+				gameState = YesOrNo;
+				waiting = true;
+			}
+			break;
 
-			case MonsterAnimating:
-				//等待怪物攻擊動畫完畢
-				if (waiting) {
+		case YesOrNo:
+			if (waiting){
+				if (animatorOfAnimImages.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
 					waiting = false;
 				}
-				//怪物攻擊動畫完畢要做的事
-				if (!waiting) {
-					if (monsterBlood <= 0 || characterBlood <= 0) {
-						gameState = BattleEnd;
-					} else {
-						startProblem (quationType);
-						gameState = WaitforHitButton;
-						waiting = true;
-					}
-				}
-				break;
+			} 
+			if (!waiting){
+				animatorOfPlayer.Play ("PlayerF01_attack");
+				gameState = PlayerAnimating;
+				waiting = true;
+			}
+			break;
 
-			case BattleEnd:
-				if (monsterBlood <= 0 ){
-					Debug.Log ("win!");
-					win ();
-				} 
-				else if (characterBlood <= 0){
-
+		case PlayerAnimating:
+			//等待玩家攻擊動畫完畢
+			if (waiting){
+				if (animatorOfPlayer.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
+					waiting = false;
 				}
-				break;
+			}
+			//玩家攻擊動畫完畢要做的事
+			if (!waiting){
+				animatorOfMonster.Play ("Run", 0);
+				animatorOfMonster.Play ("MonsterGO", 1);
+				gameState = MonsterAnimating;
+				waiting = true;
+			}
+			break;
+
+		case MonsterAnimating:
+			//等待怪物攻擊動畫完畢
+			if (waiting) {
+				if (animatorOfMonster.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
+					waiting = false;
+				}
+			}
+			//怪物攻擊動畫完畢要做的事
+			if (!waiting) {
+				if (monsterBlood <= 0 || characterBlood <= 0) {
+					gameState = BattleEnd;
+				} else {
+					startProblem (quationType);
+					gameState = WaitforHitButton;
+					waiting = true;
+				}
+			}
+			break;
+
+		case BattleEnd:
+			if (monsterBlood <= 0 ){
+				Debug.Log ("win!");
+				win ();
+			} 
+			else if (characterBlood <= 0){
+
+			}
+			break;
 		} 
 			
 
 	}
 
 	public void startProblem(int type){
+
+		answerArea.gameObject.SetActive (false);
+
 		switch (type) {
 			case PUREarithmetic:
 				Type1Problem ();
@@ -274,11 +300,7 @@ public class QAUI : MonoBehaviour {
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 
-			/*if (monsterBlood > 0) {
-				startProblem (quationType);
-			}*/
-			
-			//else-結束答題
+			answerArea.gameObject.SetActive (true);
 
 			waiting = false;
 
