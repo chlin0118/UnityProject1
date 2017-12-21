@@ -383,11 +383,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 820768503}
-        m_MethodName: CheckAnswerBtn2
-        m_Mode: 1
+        m_MethodName: BtnAnswerOnclick
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 56961384}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1016,11 +1016,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 820768503}
-        m_MethodName: CheckAnswerBtn3
-        m_Mode: 1
+        m_MethodName: BtnAnswerOnclick
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 573000222}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1086,6 +1086,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &622091000 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1250979134490386, guid: 1af22963f6cd7494ca5c75907839eb4b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1946168951}
 --- !u!1 &632909298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,6 +1380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac0abd045247064baf4a7f4d436435f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInFight: {fileID: 622091000}
   timerText: {fileID: 1729049232}
   charaBlood: {fileID: 1491669489}
   monBlood: {fileID: 1050088889}
@@ -1616,11 +1622,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 820768503}
-        m_MethodName: CheckAnswerBtn1
-        m_Mode: 1
+        m_MethodName: BtnAnswerOnclick
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1081369180}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1992,11 +1998,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 820768503}
-        m_MethodName: CheckAnswerBtn4
-        m_Mode: 1
+        m_MethodName: BtnAnswerOnclick
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1426665645}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

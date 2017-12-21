@@ -6,6 +6,16 @@ using UnityEngine.UI;
 
 public class QAUI : MonoBehaviour {
 
+	public GameObject playerInFight;
+	Animator animatorOfPlayer;
+
+	int gameState = 1;
+	const int WaitforHitButton = 1; 
+	const int PlayerAnimating = 2;
+	const int MonsterAnimating = 3;
+	const int BattleEnd = 4;
+	bool waiting = true;
+
 	float timer_f = 0f;
 	int timer = 0;
 	bool isAnswering = false;
@@ -50,6 +60,9 @@ public class QAUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		animatorOfPlayer = playerInFight.GetComponent<Animator> ();
+
+
 		characterBlood = Random.Range (50, 100);
 		monsterBlood = Random.Range (20, 50);
 
@@ -71,31 +84,90 @@ public class QAUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		timer_f += Time.deltaTime;
 		timer = (int)timer_f;
 
 		timerSlider.value = AnswerCountDownTime - timer;
 		timerText.text =  (AnswerCountDownTime - timer)+"/"+ timerSlider.maxValue+"s";
 
-		if (monsterBlood <= 0) {
-			Debug.Log ("win:");
-			win ();
+		if (animatorOfPlayer.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
+			Debug.Log ("stay");
+		} else {
+			Debug.Log ("not stay");
 		}
+
+		Debug.Log ("gameState: " + gameState);
+	
+		switch (gameState) {
+			//等待玩家按按鈕
+			case WaitforHitButton:
+				if (waiting){
+					
+				} 
+				if (!waiting){
+					animatorOfPlayer.Play ("PlayerF01_attack");
+					gameState = PlayerAnimating;
+					waiting = true;
+				}
+				break;
+
+			case PlayerAnimating:
+				//等待玩家攻擊動畫完畢
+				if (waiting){
+					if (animatorOfPlayer.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
+						waiting = false;
+					}
+				}
+				//玩家攻擊動畫完畢要做的事
+				if (!waiting){
+					gameState = MonsterAnimating;
+					waiting = true;
+				}
+				break;
+
+			case MonsterAnimating:
+				//等待怪物攻擊動畫完畢
+				if (waiting) {
+					waiting = false;
+				}
+				//怪物攻擊動畫完畢要做的事
+				if (!waiting) {
+					if (monsterBlood <= 0 || characterBlood <= 0) {
+						gameState = BattleEnd;
+					} else {
+						startProblem (quationType);
+						gameState = WaitforHitButton;
+						waiting = true;
+					}
+				}
+				break;
+
+			case BattleEnd:
+				if (monsterBlood <= 0 ){
+					Debug.Log ("win!");
+					win ();
+				} 
+				else if (characterBlood <= 0){
+
+				}
+				break;
+		} 
+			
 
 	}
 
 	public void startProblem(int type){
 		switch (type) {
-		case PUREarithmetic:
-			Type1Problem ();
-			break;
-		case APPLICATIONformula:
-			Type2Problem ();
-			break;
-		case APPLICATIONarithmetic:
-			
-			break;
+			case PUREarithmetic:
+				Type1Problem ();
+				break;
+			case APPLICATIONformula:
+				Type2Problem ();
+				break;
+			case APPLICATIONarithmetic:
+				
+				break;
 		} 
 
 	}
@@ -192,9 +264,9 @@ public class QAUI : MonoBehaviour {
 
 	}
 
-	public void CheckAnswerBtn1(){
+	public void BtnAnswerOnclick(Button btn){
 
-		if (btn1.CompareTag ("answer")) {
+		if (btn.CompareTag ("answer")) {
 			monsterBlood = monsterBlood - Random.Range (5, 15);
 			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 			monsterSlider.value = monsterBlood;
@@ -202,15 +274,17 @@ public class QAUI : MonoBehaviour {
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
 
-			if (monsterBlood > 0) {
+			/*if (monsterBlood > 0) {
 				startProblem (quationType);
-			}
+			}*/
 			
 			//else-結束答題
 
+			waiting = false;
+
 		} else {
 
-			btn1.interactable = false;
+			btn.interactable = false;
 			answerNo++;
 			if (answerNo == 1) {
 				//promptArea.text = ;
@@ -219,78 +293,6 @@ public class QAUI : MonoBehaviour {
 			}
 
 		}
-	}
-	public void CheckAnswerBtn2(){
-		
-		if (btn2.CompareTag ("answer")) {
-			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
-			monsterSlider.value = monsterBlood;
-			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
-			characterSlider.value = characterBlood;
-			if (monsterBlood > 0) {
-				startProblem (quationType);
-			}
-
-			//else-結束答題
-		} else {
-
-			btn2.interactable = false;
-			answerNo++;
-			if (answerNo == 1) {
-			}else if(answerNo == 2){
-			}else if(answerNo == 3){
-			}
-		}
-
-	}
-	public void CheckAnswerBtn3(){
-		if (btn3.CompareTag ("answer")) {
-			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
-			monsterSlider.value = monsterBlood;
-			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
-			characterSlider.value = characterBlood;
-			if (monsterBlood > 0) {
-				startProblem (quationType);
-			}
-
-			//else-結束答題
-		} else {
-			btn3.interactable = false;
-			answerNo++;
-			if (answerNo == 1) {
-			}else if(answerNo == 2){
-			}else if(answerNo == 3){
-			}
-		}
-			
-	}
-	public void CheckAnswerBtn4(){
-		if (btn4.CompareTag ("answer")) {
-			monsterBlood = monsterBlood - Random.Range (5, 15);
-			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
-			monsterSlider.value = monsterBlood;
-			characterBlood = characterBlood - Random.Range (1, 5);
-			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
-			characterSlider.value = characterBlood;
-			if (monsterBlood > 0) {
-				startProblem (quationType);
-			}
-
-			//else-結束答題
-		} else {
-
-			btn4.interactable = false;
-			answerNo++;
-			if (answerNo == 1) {
-			}else if(answerNo == 2){
-			}else if(answerNo == 3){
-			}
-		}
-			
 	}
 
 	void win(){
