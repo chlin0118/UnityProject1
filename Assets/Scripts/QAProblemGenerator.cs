@@ -62,30 +62,71 @@ public class Problems{
 	float floatAnswer = 0.0f;//選項1
 	string finalProblem = "456";//題目
 
+	float dividend = 0;//被除數
+	float divisor = 0;//除數
+	int randomNo = 0;
+
 	public Problems(int type){
 		this.type = type;
-		setAnswer();
 	}
 		
 	public string getFinalProblem(){
 
 	
-		if (type == 1) {//小數除整數
+		if (type == 1) {//小數除法算數
 
-			float divisor = Random.Range (2.0f, 10.0f);
-			string div = divisor.ToString ("0.0");
-			float divisor1 = getFloat (div, 0.0f);
+			randomNo = Random.Range (1, 8);//決定要出哪種題目
 
-			float dividend = getFloat (answer, 00.0f) * divisor1;
+			dividend = 0;//被除數
 
-			finalProblem = dividend.ToString ("0.00") + "÷" + divisor1 + "=";
+			divisor = 0;//除數
+			switch(randomNo){
+				
+				case 1:  //整數除整數=小數
+					dividend = Random.Range (1, 1000);
+					divisor = Random.Range (1, 1000);
+					if (dividend % divisor == 0)
+						break;
+					finalProblem = dividend + "÷" + divisor + "= ?";
+						break;
+	
+				case 2:  //2位小數除1位整數
+					dividend = Random.Range (0.1f, 780.0f);
+					divisor = Random.Range (1, 9);
+					finalProblem = dividend.ToString("0.00") + "÷" + divisor + "= ?";
+					break;
+
+					
+
+				case 3:  //2位小數除2位整數
+					dividend = Random.Range (0.1f, 425.0f);
+					divisor = Random.Range (10,99);
+					finalProblem = dividend.ToString("0.00") + "÷" + divisor + "= ?";
+					break;
+
+				case 4:  //整數除2位小數
+					dividend = Random.Range (1,780);
+					divisor = Random.Range (0.1f, 200.0f);
+					finalProblem = dividend + "÷" + divisor.ToString("0.00") + "= ?";
+					break;
+
+				default:  //小數除小數
+					dividend = Random.Range (0.1f, 850.0f);
+					divisor = Random.Range (0.1f, 100.0f);
+					finalProblem = dividend.ToString("0.000") + "÷" + divisor.ToString("0.00") + "= ?";
+					break;
+
+			}
+
+			answer = (dividend / divisor).ToString ("0.0");
+			wrongAnswer = (divisor / dividend).ToString ("0.0");
 
 		
 		} else {
 			finalProblem = "";
 			string[] args = new string[]{ "0", "0" };
 
-			int randomNo = Random.Range (1, 18);//決定要從哪個array出題目
+			randomNo = Random.Range (1, 18);//決定要從哪個array出題目
 
 			if ((randomNo < 11)) {//簡單題easyQ
 
@@ -94,7 +135,7 @@ public class Problems{
 				switch (j) {
 
 					case 0:
-						args [0] = Random.Range (10, 99).ToString ("00");
+						args [0] = Random.Range (10, 99).ToString ("0");
 						args [1] = Random.Range (2, 9).ToString ("0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += easyQ [j] [i];
@@ -106,7 +147,7 @@ public class Problems{
 						wrongAnswer = args [1] + "÷" + args [0];
 						break;
 					case 1:
-						args [0] = Random.Range (10, 99).ToString ("00");
+						args [0] = Random.Range (10, 99).ToString ("0");
 						args [1] = "200";
 						for (int i = 0; i < 2; i++) {
 							finalProblem += easyQ [j] [i];
@@ -119,7 +160,7 @@ public class Problems{
 						break;
 					case 2:
 						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
-						args [1] = Random.Range (10, 99).ToString ("00");
+						args [1] = Random.Range (10, 99).ToString ("0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += easyQ [j] [i];
 							finalProblem += args [i];
@@ -131,7 +172,7 @@ public class Problems{
 						break;
 					case 3:
 						args [0] = Random.Range (1.1f, 9.9f).ToString ("0.0");
-						args [1] = Random.Range (10.1f, 20.9f).ToString ("00.0");
+						args [1] = Random.Range (10.1f, 20.9f).ToString ("0.0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += easyQ [j] [i];
 							finalProblem += args [i];
@@ -155,7 +196,7 @@ public class Problems{
 						break;
 					case 5:
 						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.00");
-						args [1] = Random.Range (10.1f, 20.9f).ToString ("00.00");
+						args [1] = Random.Range (10.1f, 20.9f).ToString ("0.00");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += easyQ [j] [i];
 							finalProblem += args [i];
@@ -167,7 +208,7 @@ public class Problems{
 						break;
 					case 6:
 						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
-						args [1] = Random.Range (100, 300).ToString ("000");
+						args [1] = Random.Range (100, 300).ToString ("0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += easyQ [j] [i];
 							finalProblem += args [i];
@@ -202,7 +243,7 @@ public class Problems{
 						wrongAnswer = args [0] + "÷" + args [1];
 						break;
 					case 9:
-						args [0] = Random.Range (10000, 50000).ToString ("00000");
+						args [0] = Random.Range (10000, 50000).ToString ("0");
 						for (int i = 0; i < 1; i++) {
 							finalProblem += easyQ [j] [i];
 							finalProblem += args [i];
@@ -220,7 +261,7 @@ public class Problems{
 				switch (j) {
 
 					case 0:
-						args [0] = Random.Range (200.1f, 10.9f).ToString ("000.0");
+						args [0] = Random.Range (200.1f, 10.9f).ToString ("0.0");
 						args [1] = Random.Range (0.1f, 9.9f).ToString ("0.00");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += quotientPlusOneQ [j] [i];
@@ -230,7 +271,7 @@ public class Problems{
 						finalProblem += quotientPlusOneQ [j] [2];
 						break;
 					case 1:
-						args [0] = Random.Range (10, 99).ToString ("00");
+						args [0] = Random.Range (10, 99).ToString ("0");
 						args [1] = Random.Range (0.1f, 9.9f).ToString ("0.00");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += quotientPlusOneQ [j] [i];
@@ -240,8 +281,8 @@ public class Problems{
 						finalProblem += quotientPlusOneQ [j] [2];
 						break;
 					case 2:
-						args [0] = Random.Range (100, 650).ToString ("000");
-						args [1] = Random.Range (10.0f, 20.9f).ToString ("00.00");
+						args [0] = Random.Range (100, 650).ToString ("0");
+						args [1] = Random.Range (10.0f, 20.9f).ToString ("0.00");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += quotientPlusOneQ [j] [i];
 							finalProblem += args [i];
@@ -250,8 +291,8 @@ public class Problems{
 						finalProblem += quotientPlusOneQ [j] [2];
 						break;
 					case 3:
-						args [0] = Random.Range (100.0f, 950.0f).ToString ("000.0");
-						args [1] = Random.Range (1000.0f, 850.0f).ToString ("0000.0");
+						args [0] = Random.Range (100.0f, 950.0f).ToString ("0.0");
+						args [1] = Random.Range (1000.0f, 850.0f).ToString ("0.0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += quotientPlusOneQ [j] [i];
 							finalProblem += args [i];
@@ -271,7 +312,7 @@ public class Problems{
 
 					case 0:
 						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
-						args [1] = Random.Range (10, 99).ToString ("00");
+						args [1] = Random.Range (10, 99).ToString ("0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += formulaOnlyQ [j] [i];
 							finalProblem += args [i];
@@ -291,7 +332,7 @@ public class Problems{
 						break;
 					}
 					answer = args [1] + "÷" + args [0];
-					wrongAnswer = args [0] + "÷" + args [1];
+					wrongAnswer = args [1] + "×" + args [0];
 					
 			} else {//大數小數題bigSamllQ
 
@@ -300,26 +341,26 @@ public class Problems{
 				switch (j) {
 
 					case 0:
-						args [0] = Random.Range (200, 700).ToString ("000");
-						args [1] = Random.Range (10, 99).ToString ("00");
+						args [0] = Random.Range (200, 700).ToString ("0");
+						args [1] = Random.Range (10, 99).ToString ("0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += formulaOnlyQ [j] [i];
 							finalProblem += args [i];
 						}
 						finalProblem += formulaOnlyQ [j] [2];
-						floatAnswer = getFloat (args [1], 000f) / getFloat (args [0], 00f);
+						floatAnswer = getFloat (args [1],0) / getFloat (args [0], 0);
 						answer = args [1] + "÷" + args [0];
 						wrongAnswer = args [0] + "÷" + args [1];
 						break;
 					case 1:
 						args [0] = Random.Range (1.1f, 9.9f).ToString ("0.00");
-						args [0] = Random.Range (10, 99).ToString ("00");
+						args [0] = Random.Range (10, 99).ToString ("0");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += formulaOnlyQ [j] [i];
 							finalProblem += args [i];
 						}
 						finalProblem += formulaOnlyQ [j] [2];
-						floatAnswer = getFloat (args [0], 0.00f) / getFloat (args [1], 00f);
+						floatAnswer = getFloat (args [0], 0.00f) / getFloat (args [1], 0);
 						answer = args [0] + "÷" + args [1];
 						wrongAnswer = args [1] + "÷" + args [0];
 						break;
@@ -329,27 +370,11 @@ public class Problems{
 			
 		return finalProblem;
 	}
-		
-	void setAnswer(){
-
-		switch (type) {
-
-		case PUREarithmetic:
-			answer = Random.Range (0.1f, 100.0f).ToString("00.0");
-			break;
-		case APPLICATIONformula:
-			
-			break;
-		case APPLICATIONarithmetic:
-			
-			break;
-		} 
-	}
 
 	public string getAnswer(){
 
 		if (type == 3) {
-			answer = floatAnswer.ToString ("00.0");
+			answer = floatAnswer.ToString ("0.0");
 			return answer;
 		} else {
 			return answer;
@@ -359,14 +384,96 @@ public class Problems{
 	public string getWrongAnswer(){
 		return wrongAnswer;
 	}
+	int countWrong = 0;
 
-	/*public string prompt(int number){
-	
-	
-	
-	
-	
-	}*/
+	public string promptWrong(){
+
+		switch (type) {//題目type
+		case 1://純算數
+
+			if (countWrong == 0) {//第一次錯
+				countWrong++;
+				return "\t除數和被除數再想想看";
+			}
+		
+			if (countWrong == 1) {//錯一樣的
+				countWrong = 0;
+				return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + dividend + "=" + divisor + "×商數";
+			} 
+			break;
+				
+
+			case 2://列式
+				if (randomNo < 15) {
+					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + "被除數÷除數";
+				} else if (randomNo == 15 || randomNo == 16) {
+					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + "被除數÷除數\n乘並不一定變大，除也不一定變小";
+				} else if (randomNo == 17 || randomNo == 18) {
+					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + "被除數÷除數\n不一定大的數就是被除數";
+				}
+				break;
+		case 3:
+			if (countWrong == 0) {//第一次錯
+				countWrong++;
+				return "\t除數和被除數再想清楚";	
+			}
+
+			if (countWrong == 1) {//錯一樣的
+				countWrong = 0;
+				if (randomNo < 15) {
+					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + dividend + "=" + divisor + "×商數";
+				} else if (randomNo == 15 || randomNo == 16) {
+					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t乘並不一定變大，除也不一定變小";
+
+				} else if (randomNo == 17 || randomNo == 18) {
+					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t不一定大的數就是被除數";
+				}
+			}
+			break;
+		}return "";
+
+	}
+	int count = 0;//同樣概念錯幾次
+	public string prompt(){
+
+		switch (type) {//題目type
+		case 1://純算數
+
+			if (count == 0) {//第一次錯
+				
+				if (randomNo == 1 || randomNo == 2 || randomNo == 3) {//除整數
+					count++;
+					return "\t注意商的小數點";
+				} else {
+					count++;
+					return "\t注意小數點的移位";
+				}
+			}
+
+			
+			if (count == 1) {//錯一樣的都選wrongAnswer
+				count = 0;
+				if (randomNo == 1 || randomNo == 2 || randomNo == 3)//除整數
+					return "\t小數點要標在被除數被移位前的小數點位置";
+				else
+					return "\t依照除數的小數點後的位數，將除數與被除數小數點同時向右移位";
+			}
+			break;
+		case 3:
+			if (count == 0) {//第一次錯
+				count++;
+				return "\t注意小數點的移位";
+			}
+			if (count == 1) {//錯一樣的都選wrongAnswer
+				count = 0;
+				return "\t依照除數的小數點後的位數，將除數與被除數小數點同時向右移位";
+			}
+			break;
+
+		}return "";
+
+	}
+
 
 
 	private float getFloat(string stringValue, float defaultValue)

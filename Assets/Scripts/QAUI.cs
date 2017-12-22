@@ -78,6 +78,8 @@ public class QAUI : MonoBehaviour {
 
 	public int quationType = 1;//設定題目type
 
+	Problems p1;
+
 
 	// Use this for initialization
 	void Start () {
@@ -220,8 +222,6 @@ public class QAUI : MonoBehaviour {
 			}
 			break;
 		} 
-			
-
 	}
 
 	public void startProblem(int type){
@@ -246,12 +246,13 @@ public class QAUI : MonoBehaviour {
 		timer_f = 0;
 		answerNo = 0;
 
-		Problems p1 = new Problems(PUREarithmetic);
+		p1 = new Problems(PUREarithmetic);
 		roundPrompt.text ="(答案取至小數點後第一位並四捨五入)";
 		questionArea.fontSize = 79;
 		questionArea.text = p1.getFinalProblem ();
 		answerArea.text = "答案：" + p1.getAnswer();
 		answer = p1.getAnswer();
+		string wrongAnswer = p1.getWrongAnswer();
 
 		btn1.GetComponent<RectTransform> ().sizeDelta = new Vector2 (480,150);
 		btn3.GetComponent<RectTransform> ().sizeDelta = new Vector2 (480,150);
@@ -271,30 +272,43 @@ public class QAUI : MonoBehaviour {
 
 		if (btnNo%4 == 0) {
 			Text1.text = p1.getAnswer ();
-			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
-			Text4.text = (getFloat(answer,0.00f)+1).ToString("0.00");
+			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text3.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			Text4.text = p1.getWrongAnswer ();
 			btn1.tag = "answer";
+			btn2.tag = "1answer0.1";
+			btn3.tag = "1wrongAnswer0.1";
+			btn4.tag = "wrongAnswer";
 
 		} else if (btnNo%4 == 1) {
-			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
+			Text1.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
 			Text2.text = p1.getAnswer ();
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
-			Text4.text = (getFloat(answer,0.00f)+2).ToString("0.00");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text4.text = p1.getWrongAnswer ();
+			btn1.tag = "1wrongAnswer10";
 			btn2.tag = "answer";
+			btn3.tag = "1answer10";
+			btn4.tag = "wrongAnswer";
 
 		} else if (btnNo%4 == 2) {
-			Text1.text = (getFloat(answer,0.00f)*10).ToString("0.00");
-			Text2.text = (getFloat(answer,0.00f)+1).ToString("0.00");
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text2.text = p1.getWrongAnswer ();
 			Text3.text = p1.getAnswer ();
-			Text4.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
+			Text4.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			btn1.tag = "1answer0.1";
+			btn2.tag = "wrongAnswer";
 			btn3.tag = "answer";
+			btn4.tag = "1wrongAnswer0.1";
 		} else if (btnNo%4 == 3) {
-			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
-			Text2.text = (getFloat(answer,0.00f)+2).ToString("0.00");
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
+			Text1.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
+			Text2.text = p1.getWrongAnswer ();
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
 			Text4.text = p1.getAnswer ();
+			btn1.tag = "1wrongAnswer10";
+			btn2.tag = "wrongAnswer";
+			btn4.tag = "1answer10";
 			btn4.tag = "answer";
+
 		}
 
 	}
@@ -303,7 +317,7 @@ public class QAUI : MonoBehaviour {
 		timer_f = 0;
 		answerNo = 0;
 
-		Problems p1 = new Problems(APPLICATIONformula);
+		p1 = new Problems(APPLICATIONformula);
 		questionArea.fontSize = 60;
 		questionArea.text = p1.getFinalProblem();
 		answerArea.text = "答案：" +p1.getAnswer();
@@ -324,11 +338,13 @@ public class QAUI : MonoBehaviour {
 			Text1.text = answer;
 			Text3.text = p1.getWrongAnswer();
 			btn1.tag = "answer";
+			btn3.tag = "wrongAnswer";
 
 		} else if (btnNo== 1) {
 			Text1.text = p1.getWrongAnswer();
 			Text3.text = answer;
 			btn3.tag = "answer";
+			btn1.tag = "wrongAnswer";
 
 		} 
 
@@ -338,11 +354,12 @@ public class QAUI : MonoBehaviour {
 		answerNo = 0;
 		roundPrompt.text ="(答案取至小數點後第一位並四捨五入)";
 
-		Problems p1 = new Problems(APPLICATIONarithmetic);
+		p1 = new Problems(APPLICATIONarithmetic);
 		questionArea.fontSize = 60;
 		questionArea.text = p1.getFinalProblem();
 		answerArea.text = "答案：" +p1.getAnswer();
 		answer = p1.getAnswer();
+		string wrongAnswer = p1.getWrongAnswer ();
 
 		btn1.tag = "options";
 		btn1.interactable = true;
@@ -357,30 +374,43 @@ public class QAUI : MonoBehaviour {
 
 		if (btnNo%4 == 0) {
 			Text1.text = p1.getAnswer ();
-			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
-			Text4.text = (getFloat(answer,0.00f)+1).ToString("0.0");
+			Text2.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
+			Text3.text = p1.getWrongAnswer ();
+			Text4.text = (getFloat(answer,0.00f)*10).ToString("0.0");
 			btn1.tag = "answer";
+			btn2.tag = "3wrongAnswer10";
+			btn3.tag = "wrongAnswer";
+			btn4.tag = "3answer10";
 
 		} else if (btnNo%4 == 1) {
 			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
 			Text2.text = p1.getAnswer ();
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
-			Text4.text = (getFloat(answer,0.00f)+2).ToString("0.0");
+			Text3.text = p1.getWrongAnswer ();
+			Text4.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			btn1.tag = "3answer0.1";
 			btn2.tag = "answer";
+			btn3.tag = "wrongAnswer";
+			btn4.tag = "3wrongAnswer0.1";
 
 		} else if (btnNo%4 == 2) {
 			Text1.text = (getFloat(answer,0.00f)*10).ToString("0.0");
-			Text2.text = (getFloat(answer,0.00f)+1).ToString("0.0");
+			Text2.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
 			Text3.text = p1.getAnswer ();
-			Text4.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text4.text = p1.getWrongAnswer ();
+			btn1.tag = "3answer10";
+			btn2.tag = "3wrongAnswer10";
 			btn3.tag = "answer";
+			btn4.tag = "wrongAnswer";
 		} else if (btnNo%4 == 3) {
 			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
-			Text2.text = (getFloat(answer,0.00f)+2).ToString("0.0");
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text2.text = p1.getWrongAnswer ();
+			Text3.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
 			Text4.text = p1.getAnswer ();
+			btn1.tag = "3answer0.1";
+			btn2.tag = "wrongAnswer";
+			btn3.tag = "3wrongAnswer0.1";
 			btn4.tag = "answer";
+
 		}
 
 
@@ -403,12 +433,28 @@ public class QAUI : MonoBehaviour {
 		} else {
 
 			btn.interactable = false;
-			answerNo++;
-			if (answerNo == 1) {
-				//promptArea.text = ;
-			}else if(answerNo == 2){
-			}else if(answerNo == 3){
+
+			if (btn.CompareTag ("1answer0.1")) {
+				promptArea.text = "提示:\n"+p1.prompt ();
+			} else if (btn.CompareTag ("1answer10")) {
+				promptArea.text = "提示:\n"+p1.prompt ();
+			} else if (btn.CompareTag ("1wrongAnswer0.1")) {
+				promptArea.text = "提示:\n"+p1.promptWrong ();
+			} else if (btn.CompareTag ("1wrongAnswer10")) {
+				promptArea.text = "提示:\n"+p1.promptWrong ();
+			} else if (btn.CompareTag ("3answer10")) {
+				promptArea.text = "提示:\n"+p1.prompt ();
+			} else if (btn.CompareTag ("3answer0.1")) {
+				promptArea.text = "提示:\n"+p1.prompt ();
+			} else if (btn.CompareTag ("3wrongAnswer10")) {
+				promptArea.text = "提示:\n"+p1.promptWrong ();
+			} else if (btn.CompareTag ("3wrongAnswer0.1")) {
+				promptArea.text = "提示:\n"+p1.promptWrong ();
+			} else if (btn.CompareTag ("wrongAnswer")) {
+				promptArea.text = "提示:\n"+p1.promptWrong ();
 			}
+
+
 
 		}
 	}
