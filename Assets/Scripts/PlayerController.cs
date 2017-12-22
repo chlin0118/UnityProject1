@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			Destroy(gameObject);
 		}
-
+		//animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController> ("PlayerInFight");
+		//Debug.Log ("animator:" + animator.name);
 		lastAngle = 270f;
 	}
 	

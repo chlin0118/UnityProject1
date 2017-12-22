@@ -26,3 +26,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/QA.unity
     guid: 9fb6493a1b8fd4104a84df8f0d0f9c21
+  - enabled: 1
+    path: Assets/Scenes/battlegroundUp.unity
+    guid: 51d49fe6701b9f04aa3c32a336e54af4
+  - enabled: 1
+    path: Assets/Scenes/battlegroundRight.unity
+    guid: 1ed70ab1e809f1345be55e6c78c79f75
+  - enabled: 1
+    path: Assets/Scenes/battlegroundLeft.unity
+    guid: 1daec4baba7f78746b4d5e84e190f9ba
+  - enabled: 1
+    path: Assets/Scenes/battlegroundDown.unity
+    guid: 3b655ffa0e7f1624bbd10f9856315f40
