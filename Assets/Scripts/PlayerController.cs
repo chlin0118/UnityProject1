@@ -131,8 +131,8 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other) {
 
 		if(other.gameObject.tag == "Enemy") {
-			StartCoroutine(sceneController.loadBattleScene("QA"));
 			currentEnemy = other.gameObject;
+			StartCoroutine(sceneController.loadBattleScene("QA"));
 		}
 	}
 

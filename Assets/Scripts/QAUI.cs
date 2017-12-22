@@ -12,6 +12,11 @@ public class QAUI : MonoBehaviour {
 	Animator animatorOfMonster;
 	public GameObject animImages;
 	Animator animatorOfAnimImages;
+	public GameObject resultPanel;
+	Animator animatorOfResultPanel;
+	public GameObject blockingPanel;
+
+	PlayerStatus playerStatus;
 
 	int gameState = 0;
 	const int WaitforHitButton = 0; 
@@ -20,6 +25,8 @@ public class QAUI : MonoBehaviour {
 	const int MonsterAnimating = 3;
 	const int BattleEnd = 4;
 	bool waiting = true;
+	bool haveHitted = false;
+
 
 	float timer_f = 0f;
 	int timer = 0;
@@ -48,11 +55,18 @@ public class QAUI : MonoBehaviour {
 	public Slider monsterSlider;
 	public Slider timerSlider;
 
-
+	public Text resultTitle;
+	public Text resultExp;
+	public Text resultLvUp;
 
 	int btnNo;
-	int characterBlood;
-	int monsterBlood;
+	int characterBlood=100;
+	int monsterBlood=50;
+	int characterAtk=20;
+	int monsterAtk=20;
+	int monsterExp=20;
+	int monsterBossID=0;
+
 	string answer = "";
 
 	const int PUREarithmetic = 1;//type1純算數
@@ -68,9 +82,10 @@ public class QAUI : MonoBehaviour {
 		animatorOfPlayer = playerInFight.GetComponent<Animator> ();
 		animatorOfAnimImages = animImages.GetComponent<Animator> ();
 		animatorOfMonster = monsterInFight.GetComponent<Animator> ();
+		animatorOfResultPanel = resultPanel.GetComponent<Animator> ();;
 
-		characterBlood = Random.Range (50, 100);
-		monsterBlood = Random.Range (20, 50);
+		//characterBlood = Random.Range (50, 100);
+		//monsterBlood = Random.Range (20, 50);
 
 		charaBlood.text = characterBlood+"/"+characterBlood;
 		monBlood.text = monsterBlood+"/" + monsterBlood;
@@ -109,9 +124,10 @@ public class QAUI : MonoBehaviour {
 		//等待玩家按按鈕
 		case WaitforHitButton:
 			if (waiting){
-
+				blockingPanel.SetActive (false);
 			} 
 			if (!waiting){
+				blockingPanel.SetActive (true);
 				animatorOfAnimImages.Play ("Correct");
 				gameState = YesOrNo;
 				waiting = true;
@@ -134,45 +150,66 @@ public class QAUI : MonoBehaviour {
 		case PlayerAnimating:
 			//等待玩家攻擊動畫完畢
 			if (waiting){
+				if(	animatorOfPlayer.GetCurrentAnimatorStateInfo (0).normalizedTime>=0.65f && !haveHitted) {
+					playerHit();
+					haveHitted = true;
+				}
 				if (animatorOfPlayer.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
 					waiting = false;
 				}
 			}
 			//玩家攻擊動畫完畢要做的事
 			if (!waiting){
-				animatorOfMonster.Play ("Run", 0);
-				animatorOfMonster.Play ("MonsterGO", 1);
-				gameState = MonsterAnimating;
-				waiting = true;
+				if (monsterBlood <= 0 ){
+					Debug.Log ("win!");
+					win ();
+					gameState = BattleEnd;
+					waiting = true;
+				}  else {
+					animatorOfMonster.Play ("Run", 0);
+					animatorOfMonster.Play ("MonsterGO", 1);
+					gameState = MonsterAnimating;
+					waiting = true;
+					haveHitted = false;
+				}
 			}
 			break;
 
 		case MonsterAnimating:
 			//等待怪物攻擊動畫完畢
 			if (waiting) {
+				if(	animatorOfMonster.GetCurrentAnimatorStateInfo (1).normalizedTime>=0.7f && !haveHitted) {
+					monsterHit();
+					haveHitted = true;
+				}
 				if (animatorOfMonster.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
 					waiting = false;
 				}
 			}
 			//怪物攻擊動畫完畢要做的事
 			if (!waiting) {
-				if (monsterBlood <= 0 || characterBlood <= 0) {
+				if (characterBlood <= 0) {
+					lose ();
+					Debug.Log ("lose!");
 					gameState = BattleEnd;
+					waiting = true;
 				} else {
 					startProblem (quationType);
 					gameState = WaitforHitButton;
 					waiting = true;
+					haveHitted = false;
 				}
 			}
 			break;
 
 		case BattleEnd:
-			if (monsterBlood <= 0 ){
-				Debug.Log ("win!");
-				win ();
+			if (waiting){
+				if (animatorOfResultPanel.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
+					waiting = false;
+				}
 			} 
-			else if (characterBlood <= 0){
-
+			if (!waiting){
+				back ();
 			}
 			break;
 		} 
@@ -185,15 +222,15 @@ public class QAUI : MonoBehaviour {
 		answerArea.gameObject.SetActive (false);
 
 		switch (type) {
-			case PUREarithmetic:
-				Type1Problem ();
-				break;
-			case APPLICATIONformula:
-				Type2Problem ();
-				break;
-			case APPLICATIONarithmetic:
-				
-				break;
+		case PUREarithmetic:
+			Type1Problem ();
+			break;
+		case APPLICATIONformula:
+			Type2Problem ();
+			break;
+		case APPLICATIONarithmetic:
+			Type3Problem ();
+			break;
 		} 
 
 	}
@@ -203,7 +240,7 @@ public class QAUI : MonoBehaviour {
 		answerNo = 0;
 
 		Problems p1 = new Problems(PUREarithmetic);
-		roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
+		roundPrompt.text ="(答案取至小數點後第一位並四捨五入)";
 		questionArea.fontSize = 79;
 		questionArea.text = p1.getFinalProblem ();
 		answerArea.text = "答案：" + p1.getAnswer();
@@ -260,11 +297,11 @@ public class QAUI : MonoBehaviour {
 		answerNo = 0;
 
 		Problems p1 = new Problems(APPLICATIONformula);
-		//roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
 		questionArea.fontSize = 60;
 		questionArea.text = p1.getFinalProblem();
-		answerArea.text = "答案：14÷200" ;
-		answer = "14÷200";
+		answerArea.text = "答案：" +p1.getAnswer();
+		answer = p1.getAnswer();
+
 		btn1.tag = "options";
 		btn1.interactable = true;
 		btn3.tag = "options";
@@ -274,31 +311,83 @@ public class QAUI : MonoBehaviour {
 		btn3.GetComponent<RectTransform> ().sizeDelta = new Vector2 (1000,150);
 		btn2.gameObject.SetActive(false);
 		btn4.gameObject.SetActive(false);
-		btnNo = Random.Range (0,100);
+		btnNo = Random.Range (0,1);
 
-		if (btnNo%2 == 0) {
+		if (btnNo== 0) {
 			Text1.text = answer;
-			Text3.text = "200÷14";
+			Text3.text = p1.getWrongAnswer();
 			btn1.tag = "answer";
 
-		} else if (btnNo%2 == 1) {
-			Text1.text = "1.05÷15";
+		} else if (btnNo== 1) {
+			Text1.text = p1.getWrongAnswer();
 			Text3.text = answer;
 			btn3.tag = "answer";
 
 		} 
 
 	}
+	void Type3Problem(){//應用題
+		timer_f = 0;
+		answerNo = 0;
+		roundPrompt.text ="(答案取至小數點後第一位並四捨五入)";
+
+		Problems p1 = new Problems(APPLICATIONarithmetic);
+		questionArea.fontSize = 60;
+		questionArea.text = p1.getFinalProblem();
+		answerArea.text = "答案：" +p1.getAnswer();
+		answer = p1.getAnswer();
+
+		btn1.tag = "options";
+		btn1.interactable = true;
+		btn2.tag = "options";
+		btn2.interactable = true;
+		btn3.tag = "options";
+		btn3.interactable = true;
+		btn4.tag = "options";
+		btn4.interactable = true;
+
+		btnNo = Random.Range (0,100);
+
+		if (btnNo%4 == 0) {
+			Text1.text = p1.getAnswer ();
+			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text4.text = (getFloat(answer,0.00f)+1).ToString("0.0");
+			btn1.tag = "answer";
+
+		} else if (btnNo%4 == 1) {
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text2.text = p1.getAnswer ();
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text4.text = (getFloat(answer,0.00f)+2).ToString("0.0");
+			btn2.tag = "answer";
+
+		} else if (btnNo%4 == 2) {
+			Text1.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text2.text = (getFloat(answer,0.00f)+1).ToString("0.0");
+			Text3.text = p1.getAnswer ();
+			Text4.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			btn3.tag = "answer";
+		} else if (btnNo%4 == 3) {
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text2.text = (getFloat(answer,0.00f)+2).ToString("0.0");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text4.text = p1.getAnswer ();
+			btn4.tag = "answer";
+		}
+
+
+	}
 
 	public void BtnAnswerOnclick(Button btn){
 
 		if (btn.CompareTag ("answer")) {
-			monsterBlood = monsterBlood - Random.Range (5, 15);
+			/*monsterBlood = monsterBlood - Random.Range (5, 15);
 			monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 			monsterSlider.value = monsterBlood;
 			characterBlood = characterBlood - Random.Range (1, 5);
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
-			characterSlider.value = characterBlood;
+			characterSlider.value = characterBlood;*/
 
 			answerArea.gameObject.SetActive (true);
 
@@ -317,17 +406,67 @@ public class QAUI : MonoBehaviour {
 		}
 	}
 
+	void playerHit(){
+		monsterBlood = monsterBlood - characterAtk;
+		monsterBlood = monsterBlood - 2000;
+		if (monsterBlood<=0){
+			monsterBlood = 0;
+		}
+		monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
+		monsterSlider.value = monsterBlood;
+	}
+
+	void monsterHit(){
+		characterBlood = characterBlood - monsterAtk;
+		if (characterBlood<=0){
+			characterBlood = 0;
+		}
+		charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
+		characterSlider.value = characterBlood;
+	}
+
 	void win(){
+		animatorOfMonster.Play ("MonsterDie");
+
+		resultTitle.text = "戰鬥勝利";
+		resultExp.text = "獲得 " + monsterExp + " 經驗值";
+		resultLvUp.text = "等級提升了!!";
+		resultPanel.SetActive (true);
+		animatorOfResultPanel.Play("Result");
+
+		playerStatus.AddExperience(monsterExp);
+	}
+
+	void lose(){
+		resultTitle.text = "戰鬥失敗";
+		resultExp.text = "獲得 0 經驗值";
+		resultLvUp.text = "";
+		resultPanel.SetActive (true);
+		animatorOfResultPanel.Play("Result");
+	}
+
+	void back(){
 		SceneController sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
 
 		if (sceneController != null) {
 			StartCoroutine (sceneController.unLoadBattleScene ("QA"));
 		}
-
 	}
 
 	public void setType(int type){
 		quationType = type;
+	}
+
+	public void setPlayerAndMonsterStatus(PlayerStatus ps, MonsterStatus ms){
+		characterBlood = ps.currentHealth;
+		characterAtk = ps.currentAttack;
+		monsterBlood = ms.health;
+		monsterAtk = ms.damage;
+		monsterExp = ms.expToGive;
+		monsterBossID = ms.bossID;
+
+		monsterInFight.GetComponent<Animator> ().runtimeAnimatorController = ms.animatorInFight as RuntimeAnimatorController;
+		playerStatus = ps;
 	}
 
 	private float getFloat(string stringValue, float defaultValue)

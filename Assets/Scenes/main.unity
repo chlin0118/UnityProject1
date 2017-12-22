@@ -748,9 +748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  damage: 0
-  expToGive: 0
+  animatorInFight: {fileID: 9100000, guid: 18a9c88cf18bc6241a828cb5ef7a84b2, type: 2}
+  health: 20
+  damage: 20
+  expToGive: 10
+  type: 1
+  bossID: 0
 --- !u!1 &352291325 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1250979134490386, guid: 1af22963f6cd7494ca5c75907839eb4b,
@@ -762,6 +765,25 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1079696293}
   m_Script: {fileID: 11500000, guid: 01943a72dd428d849b56ebc0156ebe72, type: 3}
+--- !u!114 &352291332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 352291325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5c90d11b12b424bb6a2ab058135f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 0
+  currentExp: 0
+  toLevelUp: 000000001e000000320000005000000078000000c80000002c010000c20100008a02000084030000dc050000c4090000a00f00007017000028230000b0360000204e00003075000050c30000a0860100400d0300
+  currentHealth: 0
+  Healths: 32000000320000003c000000460000005000000064000000780000008c000000a0000000b4000000c8000000e60000000401000022010000400100005e01000086010000ae010000d6010000fe01000058020000
+  currentAttack: 0
+  Attacks: 0a0000000a0000000d000000100000001300000016000000190000001c0000001f0000002200000025000000280000002b0000002e0000003200000041000000460000004b00000050000000550000005a000000
+  gameState: 0
 --- !u!1 &483282313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1216,7 @@ GameObject:
   - component: {fileID: 681718387}
   - component: {fileID: 681718389}
   - component: {fileID: 681718388}
+  - component: {fileID: 681718390}
   m_Layer: 0
   m_Name: Squirrel
   m_TagString: Enemy
@@ -1325,6 +1348,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.22
+--- !u!114 &681718390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 681718383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: 4481ba588c976064489029a570627258, type: 2}
+  health: 30
+  damage: 25
+  expToGive: 20
+  type: 2
+  bossID: 0
 --- !u!1 &694717126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1446,7 @@ GameObject:
   - component: {fileID: 699708441}
   - component: {fileID: 699708440}
   - component: {fileID: 699708439}
+  - component: {fileID: 699708442}
   m_Layer: 0
   m_Name: RedMon
   m_TagString: Enemy
@@ -1537,6 +1578,23 @@ MonoBehaviour:
   timeBetweenMove: 2
   timeToMove: 2
   lastMove: {x: 0, y: 0}
+--- !u!114 &699708442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 699708435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: e897db2164f5ca44b8a89eacd5261c06, type: 2}
+  health: 70
+  damage: 30
+  expToGive: 100
+  type: 3
+  bossID: 0
 --- !u!1001 &772208208
 Prefab:
   m_ObjectHideFlags: 0
@@ -1689,11 +1747,11 @@ GameObject:
   - component: {fileID: 826021182}
   - component: {fileID: 826021181}
   - component: {fileID: 826021183}
-  - component: {fileID: 826021184}
   - component: {fileID: 826021185}
+  - component: {fileID: 826021186}
   m_Layer: 0
   m_Name: Mushroom
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1762,7 +1820,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 826021180}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: de227fc0b7922804ab6f0801ca5ce6bc, type: 2}
   m_CullingMode: 0
@@ -1772,26 +1830,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!50 &826021184
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 826021180}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &826021185
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1807,6 +1845,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.42
+--- !u!114 &826021186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826021180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: de227fc0b7922804ab6f0801ca5ce6bc, type: 2}
+  health: 39
+  damage: 20
+  expToGive: 50
+  type: 1
+  bossID: 1
 --- !u!1 &931074632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,11 +1940,11 @@ GameObject:
   - component: {fileID: 940647884}
   - component: {fileID: 940647883}
   - component: {fileID: 940647882}
-  - component: {fileID: 940647885}
   - component: {fileID: 940647886}
+  - component: {fileID: 940647887}
   m_Layer: 0
   m_Name: Fairy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1901,7 +1956,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 940647881}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 837ca5653eb9503419a7a6b5dc8709bc, type: 2}
   m_CullingMode: 0
@@ -1968,26 +2023,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &940647885
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 940647881}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &940647886
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2003,6 +2038,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2
   m_Radius: 0.35
+--- !u!114 &940647887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 940647881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: 837ca5653eb9503419a7a6b5dc8709bc, type: 2}
+  health: 500
+  damage: 40
+  expToGive: 5000
+  type: 1
+  bossID: 4
 --- !u!1 &1051801459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,11 +2509,11 @@ GameObject:
   - component: {fileID: 1097317496}
   - component: {fileID: 1097317495}
   - component: {fileID: 1097317494}
-  - component: {fileID: 1097317497}
   - component: {fileID: 1097317498}
+  - component: {fileID: 1097317499}
   m_Layer: 0
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2473,7 +2525,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1097317493}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9ab271bbbddbc8242bfb87d5b896fad4, type: 2}
   m_CullingMode: 0
@@ -2540,26 +2592,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1097317497
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1097317493}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &1097317498
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2575,6 +2607,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.35
+--- !u!114 &1097317499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1097317493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: 9ab271bbbddbc8242bfb87d5b896fad4, type: 2}
+  health: 60
+  damage: 25
+  expToGive: 100
+  type: 2
+  bossID: 2
 --- !u!1 &1132608145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,7 +3659,6 @@ GameObject:
   - component: {fileID: 1570061970}
   - component: {fileID: 1570061969}
   - component: {fileID: 1570061968}
-  - component: {fileID: 1570061972}
   - component: {fileID: 1570061973}
   m_Layer: 5
   m_Name: Canvas
@@ -3709,20 +3757,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1570061972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1570061967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f5c90d11b12b424bb6a2ab058135f56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevel: 0
-  currentExp: 0
-  toLevelUp: 000000001e000000320000005000000078000000c80000002c010000c20100008a02000084030000dc050000c4090000a00f00007017000028230000b0360000204e00003075000050c30000a0860100400d0300
 --- !u!114 &1570061973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3736,7 +3770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expBar: {fileID: 241636001}
   levelText: {fileID: 1676240547}
-  playerStatus: {fileID: 1570061972}
+  playerStatus: {fileID: 352291332}
 --- !u!1 &1589903092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3765,6 +3799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 352291326}
+  playerStatus: {fileID: 352291332}
 --- !u!4 &1589903094
 Transform:
   m_ObjectHideFlags: 0
@@ -3788,11 +3823,11 @@ GameObject:
   - component: {fileID: 1630807814}
   - component: {fileID: 1630807813}
   - component: {fileID: 1630807812}
-  - component: {fileID: 1630807815}
   - component: {fileID: 1630807816}
+  - component: {fileID: 1630807817}
   m_Layer: 0
   m_Name: BlueMon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3804,7 +3839,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1630807811}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 666d076f4f2e03f488c01958c43d7ac7, type: 2}
   m_CullingMode: 0
@@ -3871,26 +3906,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1630807815
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1630807811}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &1630807816
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3906,6 +3921,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.43
+--- !u!114 &1630807817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1630807811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: 666d076f4f2e03f488c01958c43d7ac7, type: 2}
+  health: 150
+  damage: 35
+  expToGive: 500
+  type: 3
+  bossID: 3
 --- !u!1 &1675759521
 GameObject:
   m_ObjectHideFlags: 0
@@ -4627,6 +4659,7 @@ GameObject:
   - component: {fileID: 2102496551}
   - component: {fileID: 2102496550}
   - component: {fileID: 2102496549}
+  - component: {fileID: 2102496552}
   m_Layer: 0
   m_Name: WhiteMon
   m_TagString: Enemy
@@ -4758,6 +4791,23 @@ MonoBehaviour:
   timeBetweenMove: 2
   timeToMove: 2
   lastMove: {x: 0, y: 0}
+--- !u!114 &2102496552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2102496545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e5693fb36a6ec498e04e280de9e3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorInFight: {fileID: 9100000, guid: 1634375feabc44d4399761c96c0178f7, type: 2}
+  health: 250
+  damage: 35
+  expToGive: 500
+  type: 1
+  bossID: 0
 --- !u!1 &2142416163
 GameObject:
   m_ObjectHideFlags: 0

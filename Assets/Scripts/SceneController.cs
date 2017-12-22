@@ -11,6 +11,9 @@ public class SceneController : MonoBehaviour {
 
 	public PlayerController player;
 
+	public PlayerStatus playerStatus;
+	private MonsterStatus monsterStatus;
+
 	// Use this for initialization
 	void Start () {
 		if (!sceneControllerExists) {
@@ -39,6 +42,9 @@ public class SceneController : MonoBehaviour {
 		while(async.progress < 0.9f){
 			Debug.Log ("async.progress: " + async.progress);
 		}
+
+		monsterStatus = player.currentEnemy.GetComponent<MonsterStatus> ();
+		monsterStatus.setHasBeenBattled ();
 
 		//暫時隱藏(SetActive (false))原本場景的物件
 		rootGameObjectOfSpecificScene = SceneManager.GetActiveScene ().GetRootGameObjects();
@@ -90,7 +96,9 @@ public class SceneController : MonoBehaviour {
 	void OnLoadBattleScene(Scene scene, LoadSceneMode mode){
 		Debug.Log ("OnLoadBattleScene: " + scene.name);
 		if (scene.name == "QA") {
-			FindObjectOfType<QAUI> ().setType(2);
+			QAUI qaui = FindObjectOfType<QAUI> ();
+			qaui.setType(monsterStatus.type);
+			qaui.setPlayerAndMonsterStatus (playerStatus, monsterStatus);
 		}
 	}
 
@@ -104,7 +112,7 @@ public class SceneController : MonoBehaviour {
 		}
 
 		if (previousScene.name == "QA") {
-			player.currentEnemy.GetComponent<MonsterStatus> ().setHasBeenBattled ();
+			
 			foreach (GameObject go in rootGameObjectOfSpecificScene) {
 				if (go.tag == "Enemy") {
 					MonsterStatus ms = go.GetComponent<MonsterStatus> ();
