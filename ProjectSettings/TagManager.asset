@@ -7,6 +7,15 @@ TagManager:
   - Enemy
   - answer
   - options
+  - wrongAnswer
+  - 1wrongAnswer0.1
+  - 1wrongAnswer10
+  - 1answer10
+  - 3answer0.1
+  - 3wrongAnswer0.1
+  - 1answer0.1
+  - 3answer10
+  - 3wrongAnswer10
   layers:
   - Default
   - TransparentFX
