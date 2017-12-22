@@ -53,23 +53,18 @@ public class Problems{
 		new string[] {"一面牆的面積是","平方公尺，一桶油漆可以粉刷","平方公尺，則這面牆要幾桶油漆才可以粉刷完？"},
 		new string[] {"一輛貨車一次可運","公斤的飼料，今天有","公斤的飼料，則至少要幾輛貨車才能運完？"}};
 
-
-	//double[][] args = new double[][]{new double[]{19.2,1.2}};
-
 	int type = 0;//題目類型
 	int argc = 0;
 	double[] args = {};
 	string[] statements = {};
-	float answer = 0.0f;//答案
-	float choice1 = 0.0f;//選項1
-	float choice2 = 0.0f;//選項2
-	float choice3 = 0.0f;//選項3
+	string answer = "";//答案
+	string wrongAnswer = "";
+	float floatAnswer = 0.0f;//選項1
 	string finalProblem = "456";//題目
 
 	public Problems(int type){
 		this.type = type;
 		setAnswer();
-
 	}
 		
 	public string getFinalProblem(){
@@ -77,35 +72,262 @@ public class Problems{
 	
 		if (type == 1) {//小數除整數
 
-			float divisor = Random.Range(2.0f, 10.0f);
-			string div = divisor.ToString("0.0");
+			float divisor = Random.Range (2.0f, 10.0f);
+			string div = divisor.ToString ("0.0");
 			float divisor1 = getFloat (div, 0.0f);
 
-			float dividend = answer * divisor1;
+			float dividend = getFloat (answer, 00.0f) * divisor1;
 
-			finalProblem = dividend.ToString ("0.00") + "÷" + divisor1 + "=" ;
+			finalProblem = dividend.ToString ("0.00") + "÷" + divisor1 + "=";
 
-			return finalProblem;
 		
-		} 
-		else {
+		} else {
 			finalProblem = "";
-			string[] args = new string[]{"0","0"};
+			string[] args = new string[]{ "0", "0" };
 
+			int randomNo = Random.Range (1, 18);//決定要從哪個array出題目
 
+			if ((randomNo < 11)) {//簡單題easyQ
 
-				args[0] = Random.Range(2.0f, 10.0f).ToString("0.0");
-				args[1] = Random.Range(2.0f, 10.0f).ToString("0.0");
+				int j = Random.Range (0, 9);
 
-				for (int i = 0; i < 2; i++) {
-					finalProblem += bigSamllQ [1][i];
-					finalProblem += args [i];
+				switch (j) {
+
+					case 0:
+						args [0] = Random.Range (10, 99).ToString ("00");
+						args [1] = Random.Range (2, 9).ToString ("0");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [0], 00f) / getFloat (args [1], 0f);
+						answer = args [0] + "÷" + args [1];
+						wrongAnswer = args [1] + "÷" + args [0];
+						break;
+					case 1:
+						args [0] = Random.Range (10, 99).ToString ("00");
+						args [1] = "200";
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [0], 00f) / 200;
+						answer = args [0] + "÷" + args [1];
+						wrongAnswer = args [1] + "÷" + args [0];
+						break;
+					case 2:
+						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
+						args [1] = Random.Range (10, 99).ToString ("00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [1], 0.0f) / getFloat (args [0], 00f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 3:
+						args [0] = Random.Range (1.1f, 9.9f).ToString ("0.0");
+						args [1] = Random.Range (10.1f, 20.9f).ToString ("00.0");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [1], 0.0f) / getFloat (args [0], 00.0f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 4:
+						args [0] = "2";
+						args [1] = Random.Range (0.1f, 0.9f).ToString ("0.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = 2 / getFloat (args [1], 0.00f);
+						answer = args [0] + "÷" + args [1];
+						wrongAnswer = args [1] + "÷" + args [0];
+						break;
+					case 5:
+						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.00");
+						args [1] = Random.Range (10.1f, 20.9f).ToString ("00.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [1], 0.00f) / getFloat (args [0], 00.00f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 6:
+						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
+						args [1] = Random.Range (100, 300).ToString ("000");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [1], 0.0f) / getFloat (args [0], 000f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 7:
+						args [0] = Random.Range (0.5f, 0.9f).ToString ("0.000");
+						args [1] = Random.Range (0.1f, 0.4f).ToString ("0.0");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [1], 0.000f) / getFloat (args [0], 0.0f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 8:
+						args [0] = Random.Range (5.0f, 9.9f).ToString ("0.0");
+						args [1] = Random.Range (1.0f, 4.9f).ToString ("0.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [2];
+						floatAnswer = getFloat (args [1], 0.0f) / getFloat (args [0], 0.00f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 9:
+						args [0] = Random.Range (10000, 50000).ToString ("00000");
+						for (int i = 0; i < 1; i++) {
+							finalProblem += easyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += easyQ [j] [1];
+						floatAnswer = getFloat (args [0], 00000f) / 39.5203f;
+						answer = args [0] + "÷" + "39.5203";
+						wrongAnswer = args [1] + "÷" + "39.5203";
+						break;
+					}
+
+			} else if ((randomNo < 15) && (randomNo > 10)) {//加一題quotientPlusOneQ
+				int j = Random.Range (0, 3);
+
+				switch (j) {
+
+					case 0:
+						args [0] = Random.Range (200.1f, 10.9f).ToString ("000.0");
+						args [1] = Random.Range (0.1f, 9.9f).ToString ("0.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += quotientPlusOneQ [j] [i];
+							finalProblem += args [i];
+						}
+						floatAnswer = getFloat (args [0], 000.0f) / getFloat (args [1], 0.00f);
+						finalProblem += quotientPlusOneQ [j] [2];
+						break;
+					case 1:
+						args [0] = Random.Range (10, 99).ToString ("00");
+						args [1] = Random.Range (0.1f, 9.9f).ToString ("0.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += quotientPlusOneQ [j] [i];
+							finalProblem += args [i];
+						}
+						floatAnswer = getFloat (args [0], 00f) / getFloat (args [1], 0.00f);
+						finalProblem += quotientPlusOneQ [j] [2];
+						break;
+					case 2:
+						args [0] = Random.Range (100, 650).ToString ("000");
+						args [1] = Random.Range (10.0f, 20.9f).ToString ("00.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += quotientPlusOneQ [j] [i];
+							finalProblem += args [i];
+						}
+						floatAnswer = getFloat (args [0], 000f) / getFloat (args [1], 00.00f);
+						finalProblem += quotientPlusOneQ [j] [2];
+						break;
+					case 3:
+						args [0] = Random.Range (100.0f, 950.0f).ToString ("000.0");
+						args [1] = Random.Range (1000.0f, 850.0f).ToString ("0000.0");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += quotientPlusOneQ [j] [i];
+							finalProblem += args [i];
+						}
+						floatAnswer = getFloat (args [0], 000.0f) / getFloat (args [1], 0000.0f);
+						finalProblem += quotientPlusOneQ [j] [2];
+						break;
+					}
+					answer = args [0] + "÷" + args [1];
+					wrongAnswer = args [1] + "÷" + args [0];
+					
+			} else if ((randomNo < 17) && (randomNo > 14)) {//列式專用題formulaOnlyQ
+
+				int j = Random.Range (0, 1);
+
+				switch (j) {
+
+					case 0:
+						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
+						args [1] = Random.Range (10, 99).ToString ("00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += formulaOnlyQ [j] [i];
+							finalProblem += args [i];
+						}
+						floatAnswer = getFloat (args [1], 0.0f) / getFloat (args [0], 00f);
+						finalProblem += formulaOnlyQ [j] [2];
+						break;
+					case 1:
+						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
+						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += formulaOnlyQ [j] [i];
+							finalProblem += args [i];
+						}
+						floatAnswer = getFloat (args [1], 0.0f) / getFloat (args [0], 0.00f);
+						finalProblem += formulaOnlyQ [j] [2];
+						break;
+					}
+					answer = args [1] + "÷" + args [0];
+					wrongAnswer = args [0] + "÷" + args [1];
+					
+			} else {//大數小數題bigSamllQ
+
+				int j = Random.Range (0, 1);
+
+				switch (j) {
+
+					case 0:
+						args [0] = Random.Range (200, 700).ToString ("000");
+						args [1] = Random.Range (10, 99).ToString ("00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += formulaOnlyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += formulaOnlyQ [j] [2];
+						floatAnswer = getFloat (args [1], 000f) / getFloat (args [0], 00f);
+						answer = args [1] + "÷" + args [0];
+						wrongAnswer = args [0] + "÷" + args [1];
+						break;
+					case 1:
+						args [0] = Random.Range (1.1f, 9.9f).ToString ("0.00");
+						args [0] = Random.Range (10, 99).ToString ("00");
+						for (int i = 0; i < 2; i++) {
+							finalProblem += formulaOnlyQ [j] [i];
+							finalProblem += args [i];
+						}
+						finalProblem += formulaOnlyQ [j] [2];
+						floatAnswer = getFloat (args [0], 0.00f) / getFloat (args [1], 00f);
+						answer = args [0] + "÷" + args [1];
+						wrongAnswer = args [1] + "÷" + args [0];
+						break;
 				}
-				finalProblem += bigSamllQ [1][2];
-				return finalProblem;
-
-				
+			}
 		}
+			
+		return finalProblem;
 	}
 		
 	void setAnswer(){
@@ -113,7 +335,7 @@ public class Problems{
 		switch (type) {
 
 		case PUREarithmetic:
-			answer = Random.Range (0.1f, 100.0f);
+			answer = Random.Range (0.1f, 100.0f).ToString("00.0");
 			break;
 		case APPLICATIONformula:
 			
@@ -126,21 +348,26 @@ public class Problems{
 
 	public string getAnswer(){
 
-		switch (type) {
-
-		case PUREarithmetic:
-			return answer.ToString ("0.00");
-
-		case APPLICATIONformula:
-			return answer.ToString ("0.00");
-
-		case APPLICATIONarithmetic:
-			return answer.ToString ("0.00");
-
-		} 
-		return answer.ToString ("0.00");
-		 
+		if (type == 3) {
+			answer = floatAnswer.ToString ("00.0");
+			return answer;
+		} else {
+			return answer;
+		}
 	}
+
+	public string getWrongAnswer(){
+		return wrongAnswer;
+	}
+
+	/*public string prompt(int number){
+	
+	
+	
+	
+	
+	}*/
+
 
 	private float getFloat(string stringValue, float defaultValue)
 	{
