@@ -332,7 +332,7 @@ public class Problems{
 						break;
 					}
 					answer = args [1] + "÷" + args [0];
-					wrongAnswer = args [1] + "×" + args [0];
+					wrongAnswer = args [0] + "÷" + args [1];
 					
 			} else {//大數小數題bigSamllQ
 
@@ -382,7 +382,12 @@ public class Problems{
 	}
 
 	public string getWrongAnswer(){
-		return wrongAnswer;
+		if (type == 3) {
+			wrongAnswer = (1.0f/floatAnswer).ToString ("0.0");
+			return wrongAnswer;
+		} else {
+			return wrongAnswer;
+		}
 	}
 	int countWrong = 0;
 
@@ -405,11 +410,11 @@ public class Problems{
 
 			case 2://列式
 				if (randomNo < 15) {
-					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + "被除數÷除數";
+				return "\t"+answer + "\n\t" + "被除數÷除數";
 				} else if (randomNo == 15 || randomNo == 16) {
-					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + "被除數÷除數\n乘並不一定變大，除也不一定變小";
+				return "\t"+answer+ "\n\t" + "被除數÷除數\n乘並不一定變大，除也不一定變小";
 				} else if (randomNo == 17 || randomNo == 18) {
-					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + "被除數÷除數\n不一定大的數就是被除數";
+				return "\t"+answer +"\n\t" + "被除數÷除數\n不一定大的數就是被除數";
 				}
 				break;
 		case 3:
