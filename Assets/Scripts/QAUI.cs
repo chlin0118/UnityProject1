@@ -483,8 +483,11 @@ public class QAUI : MonoBehaviour {
 
 		resultTitle.text = "戰鬥勝利";
 		resultExp.text = "獲得 " + monsterExp + " 經驗值";
-		resultLvUp.text = "等級提升了!!";
+		resultLvUp.text = "";
 		resultGet.text = "";
+		if (playerStatus.currentExp + monsterExp >= playerStatus.toLevelUp [playerStatus.currentLevel]) {
+			resultLvUp.text = "等級提升了!!";
+		}
 
 		if (monsterBossID > 0) {
 			playerStatus.addGameState ();

@@ -10,7 +10,6 @@ public class SceneController : MonoBehaviour {
 	private GameObject[] rootGameObjectOfSpecificScene;
 
 	public PlayerController player;
-
 	public PlayerStatus playerStatus;
 	private MonsterStatus monsterStatus;
 
@@ -136,7 +135,16 @@ public class SceneController : MonoBehaviour {
 					go.SetActive (true);
 				}
 			}
+
+			playerStatus.Save ();
 		}
+
+		/*if (previousScene.name == "menu") {
+			canvas.SetActive (true);
+			canvas.GetComponent<Canvas> ().enabled = true;
+
+			Debug.Log ("canvas.GetComponent<Canvas> ().enabled = true;");
+		}*/
 
 	}
 }

@@ -7,7 +7,7 @@ using System.IO;
 
 public static class SaveLoadManager {
 
-	public static void SavePlayer(PlayerController player){
+	public static void SavePlayer(PlayerStatus player){
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream stream = new FileStream (Application.persistentDataPath + "/player.sav", FileMode.Create);
 
@@ -26,6 +26,13 @@ public static class SaveLoadManager {
 
 			Debug.Log ("data.playerPosX: "+ data.playerPosX);
 			Debug.Log ("data.playerPosY: "+ data.playerPosY);
+			Debug.Log ("currentScene: "+ data.currentScene);
+			Debug.Log ("firstPlay: "+ data.firstPlay);
+
+			if (data.currentScene.Length<=1) {
+				Debug.Log ("null: "+ null);
+				return null;
+			}
 
 			stream.Close ();
 			return data;
@@ -42,9 +49,26 @@ public class PlayerData{
 	public float playerPosY;
 	public float playerPosZ;
 
-	public PlayerData(PlayerController player){
+	public int currentLevel;
+	public int currentExp;
+	public int currentHealth;
+	public int currentAttack;
+	public int gameState;
+	public bool firstPlay;
+	public string currentScene;
+
+
+	public PlayerData(PlayerStatus player){
 		playerPosX = player.transform.position.x;
 		playerPosY = player.transform.position.y;
 		playerPosZ = player.transform.position.z;
+
+		currentLevel = player.currentLevel;
+		currentExp = player.currentExp;
+		currentHealth = player.currentHealth;
+		currentAttack = player.currentAttack;
+		gameState = player.gameState;
+		firstPlay = player.firstPlay;
+		currentScene = player.currentScene;
 	}
 }

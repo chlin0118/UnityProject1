@@ -11,6 +11,8 @@ public class LoadNewArea : MonoBehaviour {
 
 	private PlayerController thePlayer;
 
+	public int gameState;
+
 	// Use this for initialization
 	void Start () {
 		thePlayer = FindObjectOfType<PlayerController> ();
@@ -18,7 +20,9 @@ public class LoadNewArea : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (thePlayer.gameObject.GetComponent<PlayerStatus> ().gameState >= gameState) {
+			GetComponent<BoxCollider2D> ().isTrigger = true;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {

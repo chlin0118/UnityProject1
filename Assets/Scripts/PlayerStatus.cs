@@ -18,6 +18,8 @@ public class PlayerStatus : MonoBehaviour {
 	public int [] Attacks;
 
 	public int gameState = 0;
+	public bool firstPlay = true;
+	public string currentScene = "room";
 
 	private float secondsCount;
 	private float perSecond = 1;
@@ -62,5 +64,29 @@ public class PlayerStatus : MonoBehaviour {
 
 	public void setPosition(Vector3 v3){
 		transform.position = v3;
+	}
+
+
+	public void Save(){
+		currentScene = SceneManager.GetActiveScene ().name;
+		SaveLoadManager.SavePlayer (this);
+	}
+
+	public void Load(){
+		PlayerData data = SaveLoadManager.LoadPlayer ();
+		if (data != null) {
+			transform.position = new Vector3 (data.playerPosX, data.playerPosY, data.playerPosZ);
+
+			currentLevel = data.currentLevel;
+			currentExp = data.currentExp;
+			currentHealth = data.currentHealth;
+			currentAttack = data.currentAttack;
+			gameState = data.gameState;
+			firstPlay = data.firstPlay;
+			currentScene = data.currentScene;
+			checkState ();
+		} else {
+			transform.position = new Vector3 (0, -1, 0);
+		}
 	}
 }

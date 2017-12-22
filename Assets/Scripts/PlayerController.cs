@@ -142,12 +142,5 @@ public class PlayerController : MonoBehaviour {
 		return value;
 	}
 
-	public void Save(){
-		SaveLoadManager.SavePlayer (this);
-	}
 
-	public void Load(){
-		PlayerData data = SaveLoadManager.LoadPlayer ();
-		transform.position = new Vector3(data.playerPosX, data.playerPosY, data.playerPosZ);
-	}
 }

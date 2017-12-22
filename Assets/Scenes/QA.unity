@@ -1643,7 +1643,7 @@ MonoBehaviour:
   resultTitle: {fileID: 1227845360}
   resultExp: {fileID: 1872273254}
   resultLvUp: {fileID: 375681496}
-  resultGet: {fileID: 0}
+  resultGet: {fileID: 827927777}
   quationType: 3
 --- !u!1 &827927775
 GameObject:
