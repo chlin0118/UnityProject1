@@ -262,7 +262,7 @@ public class QAUI : MonoBehaviour {
 		Problems p1 = new Problems(APPLICATIONformula);
 		//roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
 		questionArea.fontSize = 60;
-		questionArea.text = "老師把 14 公斤重的糖果平分給 200 個小朋友，每個小朋友可得幾公斤重的糖果？";
+		questionArea.text = p1.getFinalProblem();
 		answerArea.text = "答案：14÷200" ;
 		answer = "14÷200";
 		btn1.tag = "options";
