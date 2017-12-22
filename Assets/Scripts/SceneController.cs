@@ -44,7 +44,7 @@ public class SceneController : MonoBehaviour {
 		}
 
 		monsterStatus = player.currentEnemy.GetComponent<MonsterStatus> ();
-		monsterStatus.setHasBeenBattled ();
+		monsterStatus.setHasBeenBattled (true);
 
 		//暫時隱藏(SetActive (false))原本場景的物件
 		rootGameObjectOfSpecificScene = SceneManager.GetActiveScene ().GetRootGameObjects();

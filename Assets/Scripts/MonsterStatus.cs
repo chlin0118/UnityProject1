@@ -25,8 +25,8 @@ public class MonsterStatus : MonoBehaviour {
 		
 	}
 
-	public void setHasBeenBattled(){
-		hasBeenBattled = true;
+	public void setHasBeenBattled(bool TF){
+		hasBeenBattled = TF;
 	}
 	public bool getHasBeenBattled(){
 		return hasBeenBattled;

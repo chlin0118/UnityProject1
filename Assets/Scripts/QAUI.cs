@@ -17,6 +17,7 @@ public class QAUI : MonoBehaviour {
 	public GameObject blockingPanel;
 
 	PlayerStatus playerStatus;
+	MonsterStatus monsterStatus;
 
 	int gameState = 0;
 	const int WaitforHitButton = 0; 
@@ -58,6 +59,7 @@ public class QAUI : MonoBehaviour {
 	public Text resultTitle;
 	public Text resultExp;
 	public Text resultLvUp;
+	public Text resultGet;
 
 	int btnNo;
 	int characterBlood=100;
@@ -84,6 +86,11 @@ public class QAUI : MonoBehaviour {
 		animatorOfMonster = monsterInFight.GetComponent<Animator> ();
 		animatorOfResultPanel = resultPanel.GetComponent<Animator> ();;
 
+		if (playerStatus != null) {
+			playerInFight.transform.GetChild (0).GetChild (0).GetComponent<SpriteRenderer> ().sprite = playerStatus.transform.GetChild (0).GetChild (0).GetComponent<SpriteRenderer> ().sprite;
+			playerInFight.transform.GetChild (1).gameObject.SetActive (playerStatus.transform.GetChild (1).gameObject.activeInHierarchy);
+			playerInFight.transform.GetChild (2).gameObject.SetActive (playerStatus.transform.GetChild (2).gameObject.activeInHierarchy);
+		}
 		//characterBlood = Random.Range (50, 100);
 		//monsterBlood = Random.Range (20, 50);
 
@@ -431,9 +438,17 @@ public class QAUI : MonoBehaviour {
 		resultTitle.text = "戰鬥勝利";
 		resultExp.text = "獲得 " + monsterExp + " 經驗值";
 		resultLvUp.text = "等級提升了!!";
+		resultGet.text = "";
+
+		if (monsterBossID > 0) {
+			playerStatus.addGameState ();
+			if (monsterBossID <= 3) {
+				resultGet.text = "~獲得了神器~";
+			}
+		}
+
 		resultPanel.SetActive (true);
 		animatorOfResultPanel.Play("Result");
-
 		playerStatus.AddExperience(monsterExp);
 	}
 
@@ -441,8 +456,15 @@ public class QAUI : MonoBehaviour {
 		resultTitle.text = "戰鬥失敗";
 		resultExp.text = "獲得 0 經驗值";
 		resultLvUp.text = "";
+		resultGet.text = "";
 		resultPanel.SetActive (true);
 		animatorOfResultPanel.Play("Result");
+
+		if (monsterBossID > 0) {
+			monsterStatus.setHasBeenBattled (false);
+			Vector3 v3 = monsterStatus.transform.position - playerStatus.transform.position;
+			playerStatus.setPosition (playerStatus.transform.position - v3.normalized);
+		}
 	}
 
 	void back(){
@@ -467,6 +489,7 @@ public class QAUI : MonoBehaviour {
 
 		monsterInFight.GetComponent<Animator> ().runtimeAnimatorController = ms.animatorInFight as RuntimeAnimatorController;
 		playerStatus = ps;
+		monsterStatus = ms;
 	}
 
 	private float getFloat(string stringValue, float defaultValue)
