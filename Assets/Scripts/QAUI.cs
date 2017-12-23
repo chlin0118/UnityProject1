@@ -461,7 +461,7 @@ public class QAUI : MonoBehaviour {
 
 	void playerHit(){
 		monsterBlood = monsterBlood - characterAtk;
-		monsterBlood = monsterBlood - 2000;
+		//monsterBlood = monsterBlood - 2000;
 		if (monsterBlood<=0){
 			monsterBlood = 0;
 		}

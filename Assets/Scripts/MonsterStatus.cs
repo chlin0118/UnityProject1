@@ -17,7 +17,11 @@ public class MonsterStatus : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		if(bossID!=0){
+			if (FindObjectOfType<PlayerStatus> ().gameState >= bossID) {
+				gameObject.SetActive (false);
+			}
+		}
 	}
 	
 	// Update is called once per frame

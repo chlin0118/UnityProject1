@@ -16,6 +16,8 @@ public class UImanager : MonoBehaviour {
 	public Image im2;
 	public Image im3;
 
+	public Text FocusText;
+
 	private static bool UIExists;
 
 	// Use this for initialization
@@ -52,6 +54,20 @@ public class UImanager : MonoBehaviour {
 			c.a = 0f;
 			im3.color = c;
 		}
+
+		if(playerStatus.gameState == 0){
+			FocusText.text = "去上方的森林裡，打敗守護森林的魔王，蒐集第一件神器";
+		}
+		else if(playerStatus.gameState == 1){
+			FocusText.text = "得到了第一件神器-寶劍!接著去右邊的沙漠裡，打敗守護沙漠的魔王，蒐集第二件神器";
+		}
+		else if (playerStatus.gameState == 2){
+			FocusText.text = "得到了第二件神器-神盾!繼續去下方的岩石區裡，打敗守護岩石區的魔王，蒐集第三件神器";
+		}
+		else if (playerStatus.gameState == 3){
+			FocusText.text = "已蒐集齊三件神器!!!去左方的雪地，打敗最後魔王吧。";
+		}
+
 
 	}
 }
