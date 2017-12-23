@@ -83,7 +83,7 @@ public class Problems{
 			switch(randomNo){
 				
 				case 1:  //整數除整數=小數
-					dividend = Random.Range (1, 1000);
+					dividend = Random.Range (1, 500);
 					divisor = Random.Range (1, 1000);
 					if (dividend % divisor == 0)
 						break;
@@ -91,12 +91,10 @@ public class Problems{
 						break;
 	
 				case 2:  //2位小數除1位整數
-					dividend = Random.Range (0.1f, 780.0f);
+					dividend = Random.Range (0.1f, 500.0f);
 					divisor = Random.Range (1, 9);
 					finalProblem = dividend.ToString("0.00") + "÷" + divisor + "= ?";
-					break;
-
-					
+					break;		
 
 				case 3:  //2位小數除2位整數
 					dividend = Random.Range (0.1f, 425.0f);
@@ -105,7 +103,7 @@ public class Problems{
 					break;
 
 				case 4:  //整數除2位小數
-					dividend = Random.Range (1,780);
+					dividend = Random.Range (100,780);
 					divisor = Random.Range (0.1f, 200.0f);
 					finalProblem = dividend + "÷" + divisor.ToString("0.00") + "= ?";
 					break;
@@ -118,8 +116,8 @@ public class Problems{
 
 			}
 
-			answer = (dividend / divisor).ToString ("0.0");
-			wrongAnswer = (divisor / dividend).ToString ("0.0");
+			answer = (dividend / divisor).ToString ("0.00");
+			wrongAnswer = (divisor / dividend).ToString ("0.00");
 
 		
 		} else {
@@ -374,8 +372,8 @@ public class Problems{
 	public string getAnswer(){
 
 		if (type == 3) {
-			answer = floatAnswer.ToString ("0.0");
-			return answer;
+			
+			return floatAnswer.ToString ("0.00");
 		} else {
 			return answer;
 		}
@@ -383,7 +381,7 @@ public class Problems{
 
 	public string getWrongAnswer(){
 		if (type == 3) {
-			wrongAnswer = (1.0f/floatAnswer).ToString ("0.0");
+			wrongAnswer = (1.0f/floatAnswer).ToString ("0.00");
 			return wrongAnswer;
 		} else {
 			return wrongAnswer;
@@ -403,18 +401,18 @@ public class Problems{
 		
 			if (countWrong == 1) {//錯一樣的
 				countWrong = 0;
-				return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + dividend + "=" + divisor + "×商數";
+				return "\t被除數: " + dividend.ToString("0.00") + "，除數: " + divisor.ToString("0.00") + "\n\t" + dividend.ToString("0.00") + "=" + divisor.ToString("0.00") + "×商數";
 			} 
 			break;
 				
 
 			case 2://列式
 				if (randomNo < 15) {
-				return "\t"+answer + "\n\t" + "被除數÷除數";
+				return "\t被除數÷除數=?\n\t"+answer+"=?";
 				} else if (randomNo == 15 || randomNo == 16) {
-				return "\t"+answer+ "\n\t" + "被除數÷除數\n乘並不一定變大，除也不一定變小";
+				return "\t被除數÷除數\n乘並不一定變大，除也不一定變小\n\t"+answer;
 				} else if (randomNo == 17 || randomNo == 18) {
-				return "\t"+answer +"\n\t" + "被除數÷除數\n不一定大的數就是被除數";
+				return "\t被除數÷除數\n不一定大的數就是被除數\n\t"+answer;
 				}
 				break;
 		case 3:
@@ -426,12 +424,11 @@ public class Problems{
 			if (countWrong == 1) {//錯一樣的
 				countWrong = 0;
 				if (randomNo < 15) {
-					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t" + dividend + "=" + divisor + "×商數";
+					return "\t被除數÷除數=?\n\t"+answer+"=?";
 				} else if (randomNo == 15 || randomNo == 16) {
-					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t乘並不一定變大，除也不一定變小";
-
+					return "\t被除數÷除數\n乘並不一定變大，除也不一定變小\n\t"+answer;
 				} else if (randomNo == 17 || randomNo == 18) {
-					return "\t被除數: " + dividend + "除數: " + divisor + "\n\t不一定大的數就是被除數";
+					return "\t被除數÷除數\n不一定大的數就是被除數\n\t"+answer;
 				}
 			}
 			break;

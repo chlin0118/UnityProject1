@@ -245,9 +245,10 @@ public class QAUI : MonoBehaviour {
 	void Type1Problem(){//純數運算
 		timer_f = 0;
 		answerNo = 0;
+		promptArea.text = "";
 
 		p1 = new Problems(PUREarithmetic);
-		roundPrompt.text ="(答案取至小數點後第一位並四捨五入)";
+		roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
 		questionArea.fontSize = 79;
 		questionArea.text = p1.getFinalProblem ();
 		answerArea.text = "答案：" + p1.getAnswer();
@@ -272,8 +273,8 @@ public class QAUI : MonoBehaviour {
 
 		if (btnNo%4 == 0) {
 			Text1.text = p1.getAnswer ();
-			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
-			Text3.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			Text2.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
+			Text3.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.00");
 			Text4.text = p1.getWrongAnswer ();
 			btn1.tag = "answer";
 			btn2.tag = "1answer0.1";
@@ -281,9 +282,9 @@ public class QAUI : MonoBehaviour {
 			btn4.tag = "wrongAnswer";
 
 		} else if (btnNo%4 == 1) {
-			Text1.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
+			Text1.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.00");
 			Text2.text = p1.getAnswer ();
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
 			Text4.text = p1.getWrongAnswer ();
 			btn1.tag = "1wrongAnswer10";
 			btn2.tag = "answer";
@@ -291,18 +292,18 @@ public class QAUI : MonoBehaviour {
 			btn4.tag = "wrongAnswer";
 
 		} else if (btnNo%4 == 2) {
-			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
 			Text2.text = p1.getWrongAnswer ();
 			Text3.text = p1.getAnswer ();
-			Text4.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			Text4.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.00");
 			btn1.tag = "1answer0.1";
 			btn2.tag = "wrongAnswer";
 			btn3.tag = "answer";
 			btn4.tag = "1wrongAnswer0.1";
 		} else if (btnNo%4 == 3) {
-			Text1.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
+			Text1.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.00");
 			Text2.text = p1.getWrongAnswer ();
-			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text3.text = (getFloat(answer,0.00f)*10).ToString("0.00");
 			Text4.text = p1.getAnswer ();
 			btn1.tag = "1wrongAnswer10";
 			btn2.tag = "wrongAnswer";
@@ -316,6 +317,7 @@ public class QAUI : MonoBehaviour {
 	void Type2Problem(){//列式
 		timer_f = 0;
 		answerNo = 0;
+		promptArea.text = "";
 
 		p1 = new Problems(APPLICATIONformula);
 		questionArea.fontSize = 60;
@@ -352,7 +354,8 @@ public class QAUI : MonoBehaviour {
 	void Type3Problem(){//應用題
 		timer_f = 0;
 		answerNo = 0;
-		roundPrompt.text ="(答案取至小數點後第一位並四捨五入)";
+		promptArea.text = "";
+		roundPrompt.text ="(答案取至小數點後第二位並四捨五入)";
 
 		p1 = new Problems(APPLICATIONarithmetic);
 		questionArea.fontSize = 60;
@@ -374,27 +377,27 @@ public class QAUI : MonoBehaviour {
 
 		if (btnNo%4 == 0) {
 			Text1.text = p1.getAnswer ();
-			Text2.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
+			Text2.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.00");
 			Text3.text = p1.getWrongAnswer ();
-			Text4.text = (getFloat(answer,0.00f)*10).ToString("0.0");
+			Text4.text = (getFloat(answer,0.00f)*10).ToString("0.00");
 			btn1.tag = "answer";
 			btn2.tag = "3wrongAnswer10";
 			btn3.tag = "wrongAnswer";
 			btn4.tag = "3answer10";
 
 		} else if (btnNo%4 == 1) {
-			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
 			Text2.text = p1.getAnswer ();
 			Text3.text = p1.getWrongAnswer ();
-			Text4.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			Text4.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.00");
 			btn1.tag = "3answer0.1";
 			btn2.tag = "answer";
 			btn3.tag = "wrongAnswer";
 			btn4.tag = "3wrongAnswer0.1";
 
 		} else if (btnNo%4 == 2) {
-			Text1.text = (getFloat(answer,0.00f)*10).ToString("0.0");
-			Text2.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.0");
+			Text1.text = (getFloat(answer,0.00f)*10).ToString("0.00");
+			Text2.text = (getFloat(wrongAnswer,0.00f)*10).ToString("0.00");
 			Text3.text = p1.getAnswer ();
 			Text4.text = p1.getWrongAnswer ();
 			btn1.tag = "3answer10";
@@ -402,9 +405,9 @@ public class QAUI : MonoBehaviour {
 			btn3.tag = "answer";
 			btn4.tag = "wrongAnswer";
 		} else if (btnNo%4 == 3) {
-			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.0");
+			Text1.text = (getFloat(answer,0.00f)*0.1).ToString("0.00");
 			Text2.text = p1.getWrongAnswer ();
-			Text3.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.0");
+			Text3.text = (getFloat(wrongAnswer,0.00f)*0.1).ToString("0.00");
 			Text4.text = p1.getAnswer ();
 			btn1.tag = "3answer0.1";
 			btn2.tag = "wrongAnswer";
