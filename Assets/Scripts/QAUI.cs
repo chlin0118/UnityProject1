@@ -15,6 +15,7 @@ public class QAUI : MonoBehaviour {
 	public GameObject resultPanel;
 	Animator animatorOfResultPanel;
 	public GameObject blockingPanel;
+	public GameObject damageNumber;
 
 	PlayerStatus playerStatus;
 	MonsterStatus monsterStatus;
@@ -454,13 +455,13 @@ public class QAUI : MonoBehaviour {
 			characterBlood = characterBlood - 5;
 			if (characterBlood<=0){
 				characterBlood = 0;
-				lose ();
-				Debug.Log ("lose!");
-				gameState = BattleEnd;
-				waiting = true;
+
 			}
 			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 			characterSlider.value = characterBlood;
+			var clone = Instantiate (damageNumber,playerInFight.transform.position, Quaternion.Euler(Vector3.zero));
+			clone.GetComponent<FloatingNumber> ().damageNumber = 5;
+
 
 			if (btn.name == "answer1_btn") {
 				animImages.transform.GetChild (1).gameObject.SetActive (true);
@@ -508,6 +509,9 @@ public class QAUI : MonoBehaviour {
 		}
 		monBlood.text =  monsterBlood+"/"+ monsterSlider.maxValue;
 		monsterSlider.value = monsterBlood;
+
+		var clone = Instantiate (damageNumber,monsterInFight.transform.position, Quaternion.Euler(Vector3.zero));
+		clone.GetComponent<FloatingNumber> ().damageNumber = characterAtk;
 	}
 
 	void monsterHit(){
@@ -517,6 +521,9 @@ public class QAUI : MonoBehaviour {
 		}
 		charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
 		characterSlider.value = characterBlood;
+
+		var clone = Instantiate (damageNumber,playerInFight.transform.position, Quaternion.Euler(Vector3.zero));
+		clone.GetComponent<FloatingNumber> ().damageNumber = monsterAtk;
 	}
 
 	void win(){
