@@ -74,7 +74,7 @@ public class QAUI : MonoBehaviour {
 	const int PUREarithmetic = 1;//type1純算數
 	const int APPLICATIONformula = 2;//type2應用題列算式
 	const int APPLICATIONarithmetic = 3;//type3應用題算數
-	const int AnswerCountDownTime = 60;//倒數時間
+	const int AnswerCountDownTime = 300;//倒數時間
 
 	public int quationType = 1;//設定題目type
 
@@ -334,20 +334,19 @@ public class QAUI : MonoBehaviour {
 		btn3.GetComponent<RectTransform> ().sizeDelta = new Vector2 (1000,150);
 		btn2.gameObject.SetActive(false);
 		btn4.gameObject.SetActive(false);
-		btnNo = Random.Range (0,1);
+		btnNo = Random.Range (0,100);
 
-		if (btnNo== 0) {
+		if (btnNo%2== 0) {
 			Text1.text = answer;
 			Text3.text = p1.getWrongAnswer();
 			btn1.tag = "answer";
 			btn3.tag = "wrongAnswer";
 
-		} else if (btnNo== 1) {
+		} else if (btnNo%2== 1) {
 			Text1.text = p1.getWrongAnswer();
 			Text3.text = answer;
-			btn3.tag = "answer";
 			btn1.tag = "wrongAnswer";
-
+			btn3.tag = "answer";
 		} 
 
 	}
