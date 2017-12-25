@@ -74,7 +74,7 @@ public class QAUI : MonoBehaviour {
 	const int PUREarithmetic = 1;//type1純算數
 	const int APPLICATIONformula = 2;//type2應用題列算式
 	const int APPLICATIONarithmetic = 3;//type3應用題算數
-	const int AnswerCountDownTime = 300;//倒數時間
+	const int AnswerCountDownTime = 180;//倒數時間
 
 	public int quationType = 1;//設定題目type
 
@@ -115,16 +115,17 @@ public class QAUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		timer_f += Time.deltaTime;
-		timer = (int)timer_f;
-
-		timerSlider.value = AnswerCountDownTime - timer;
-		timerText.text =  (AnswerCountDownTime - timer)+"/"+ timerSlider.maxValue+"s";
 
 		if (animatorOfPlayer.GetCurrentAnimatorStateInfo (0).IsName ("Stay")) {
 			Debug.Log ("stay");
 		} else {
 			Debug.Log ("not stay");
+		}
+
+		if (timer >= AnswerCountDownTime && gameState == WaitforHitButton) {
+			gameState = PlayerAnimating;
+			blockingPanel.SetActive (true);
+			waiting = false;
 		}
 
 		Debug.Log ("gameState: " + gameState);
@@ -133,6 +134,13 @@ public class QAUI : MonoBehaviour {
 		//等待玩家按按鈕
 		case WaitforHitButton:
 			if (waiting){
+				timer_f += Time.deltaTime;
+				timer = (int)timer_f;
+
+				timerSlider.value = AnswerCountDownTime - timer;
+				timerText.text =  (AnswerCountDownTime - timer)+"/"+ timerSlider.maxValue+"s";
+
+
 				blockingPanel.SetActive (false);
 			} 
 			if (!waiting){
@@ -227,6 +235,11 @@ public class QAUI : MonoBehaviour {
 	public void startProblem(int type){
 
 		answerArea.gameObject.SetActive (false);
+
+		animImages.transform.GetChild (1).gameObject.SetActive (false);
+		animImages.transform.GetChild (2).gameObject.SetActive (false);
+		animImages.transform.GetChild (3).gameObject.SetActive (false);
+		animImages.transform.GetChild (4).gameObject.SetActive (false);
 
 		switch (type) {
 		case PUREarithmetic:
@@ -430,11 +443,26 @@ public class QAUI : MonoBehaviour {
 
 			answerArea.gameObject.SetActive (true);
 
+
+
 			waiting = false;
 
 		} else {
 
 			btn.interactable = false;
+
+			if (btn.name == "answer1_btn") {
+				animImages.transform.GetChild (1).gameObject.SetActive (true);
+			}
+			else if (btn.name == "answer2_btn") {
+				animImages.transform.GetChild (2).gameObject.SetActive (true);
+			}
+			else if (btn.name == "answer3_btn") {
+				animImages.transform.GetChild (3).gameObject.SetActive (true);
+			}else if (btn.name == "answer4_btn") {
+				animImages.transform.GetChild (4).gameObject.SetActive (true);
+			}
+
 
 			if (btn.CompareTag ("1answer0.1")) {
 				promptArea.text = "提示:\n"+p1.prompt ();
