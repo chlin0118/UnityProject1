@@ -451,6 +451,17 @@ public class QAUI : MonoBehaviour {
 
 			btn.interactable = false;
 
+			characterBlood = characterBlood - 5;
+			if (characterBlood<=0){
+				characterBlood = 0;
+				lose ();
+				Debug.Log ("lose!");
+				gameState = BattleEnd;
+				waiting = true;
+			}
+			charaBlood.text = characterBlood+"/"+ characterSlider.maxValue;
+			characterSlider.value = characterBlood;
+
 			if (btn.name == "answer1_btn") {
 				animImages.transform.GetChild (1).gameObject.SetActive (true);
 			}
