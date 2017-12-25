@@ -330,7 +330,7 @@ public class Problems{
 						break;
 					}
 					answer = args [1] + "÷" + args [0];
-					wrongAnswer = args [0] + "÷" + args [1];
+					wrongAnswer = args [1] + "×" + args [0];
 					
 			} else {//大數小數題bigSamllQ
 
@@ -383,7 +383,7 @@ public class Problems{
 		if (type == 3) {
 			wrongAnswer = (1.0f/floatAnswer).ToString ("0.00");
 			return wrongAnswer;
-		} else {
+		}else {
 			return wrongAnswer;
 		}
 	}
