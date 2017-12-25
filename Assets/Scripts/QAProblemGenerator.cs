@@ -320,7 +320,7 @@ public class Problems{
 						break;
 					case 1:
 						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.0");
-						args [0] = Random.Range (0.1f, 0.9f).ToString ("0.00");
+						args [1] = Random.Range (0.1f, 0.9f).ToString ("0.00");
 						for (int i = 0; i < 2; i++) {
 							finalProblem += formulaOnlyQ [j] [i];
 							finalProblem += args [i];
