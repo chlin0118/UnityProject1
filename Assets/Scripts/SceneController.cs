@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class SceneController : MonoBehaviour {
 	public PlayerController player;
 	public PlayerStatus playerStatus;
 	private MonsterStatus monsterStatus;
+	public GameObject whitePanel;
 
 	// Use this for initialization
 	void Start () {
@@ -79,6 +81,31 @@ public class SceneController : MonoBehaviour {
 
 	}
 
+	//進入戰鬥場景(由playerController的OnCollisionEnter2D())
+	public IEnumerator loadScene(string sceneName){
+		yield return null;
+		AsyncOperation async3 = SceneManager.LoadSceneAsync (sceneName);
+
+		async3.allowSceneActivation = false;
+
+		while(async3.progress < 0.9f){
+			Debug.Log ("async3.progress: " + async3.progress);
+		}
+
+		async3.allowSceneActivation = true;
+
+		while (SceneManager.GetSceneByName (sceneName).isLoaded != true) {
+			yield return null;
+			Debug.Log ("load?? :  " + SceneManager.GetSceneByName (sceneName).isLoaded);
+		}
+
+		//AllowSceneActivation = true 之後，等到下個Scene.isLoaded等於true，才能SetActiveScene()
+		SceneManager.SetActiveScene (SceneManager.GetSceneByName(sceneName));
+		Debug.Log ("loaddddddddddd ");
+
+
+	}
+
 	public IEnumerator unLoadBattleScene(string sceneName){
 		Debug.Log ("start Unload:");
 		yield return null;
@@ -105,6 +132,8 @@ public class SceneController : MonoBehaviour {
 	{
 		Debug.LogFormat ("[previousScene]{0} [nextScene]{1}", previousScene.buildIndex, nextScene.buildIndex);
 		Debug.Log ("active:" + SceneManager.GetActiveScene ().name);
+
+		whitePanel.SetActive (false);
 
 		if (nextScene.name == "QA") {
 			
@@ -138,6 +167,7 @@ public class SceneController : MonoBehaviour {
 
 			playerStatus.Save ();
 		}
+			
 
 		/*if (previousScene.name == "menu") {
 			canvas.SetActive (true);

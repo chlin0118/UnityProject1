@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuScene : MonoBehaviour {
 
 	private CanvasGroup fadeGroup;
-	private float fadeInSpeed = 0.33f;
+	private float fadeInSpeed = 0.66f;
 	public PlayerStatus ps;
 	public GameObject canvas;
 	public GameObject camera;
@@ -29,6 +29,7 @@ public class MenuScene : MonoBehaviour {
 
 	public void loadscene(){
 		canvas.GetComponent<Canvas> ().enabled = true;
+		canvas.transform.GetChild (14).gameObject.SetActive(true);
 		camera.GetComponent<Camera> ().enabled = true;
 		if (ps.firstPlay) {
 			SceneManager.LoadScene ("room");
