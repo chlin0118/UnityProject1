@@ -18,7 +18,7 @@ public class MenuScene : MonoBehaviour {
 		//Start with a white screen
 		fadeGroup.alpha = 1;
 
-		ps.Load ();
+		//ps.Load ();
 	}
 	
 	// Update is called once per frame

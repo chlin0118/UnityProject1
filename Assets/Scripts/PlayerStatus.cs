@@ -21,7 +21,11 @@ public class PlayerStatus : MonoBehaviour {
 	public bool firstPlay = true;
 	public string currentScene = "room";
 
-	private float secondsCount;
+    public string accountInput;
+    public string passwordInput;
+    public bool isToggleOn;
+
+    private float secondsCount;
 	private float perSecond = 1;
 
 	// Use this for initialization
@@ -66,6 +70,14 @@ public class PlayerStatus : MonoBehaviour {
 		transform.position = v3;
 	}
 
+    public void setAccountAndPassword(string ac, string pw) {
+        accountInput = ac;
+        passwordInput = pw;
+    }
+
+    public void setToggleOn(bool isOn) {
+        isToggleOn = isOn;
+    }
 
 	public void Save(){
 		currentScene = SceneManager.GetActiveScene ().name;
@@ -84,7 +96,11 @@ public class PlayerStatus : MonoBehaviour {
 			gameState = data.gameState;
 			firstPlay = data.firstPlay;
 			currentScene = data.currentScene;
-			checkState ();
+            accountInput = data.accountInput;
+            passwordInput = data.passwordInput;
+            isToggleOn = data.isToggleOn;
+
+            checkState ();
 		} else {
 			transform.position = new Vector3 (0, -1, 0);
 		}

@@ -57,6 +57,9 @@ public class PlayerData{
 	public bool firstPlay;
 	public string currentScene;
 
+    public string accountInput;
+    public string passwordInput;
+    public bool isToggleOn;
 
 	public PlayerData(PlayerStatus player){
 		playerPosX = player.transform.position.x;
@@ -70,5 +73,8 @@ public class PlayerData{
 		gameState = player.gameState;
 		firstPlay = player.firstPlay;
 		currentScene = player.currentScene;
-	}
+        accountInput = player.accountInput;
+        passwordInput = player.passwordInput;
+        isToggleOn = player.isToggleOn;
+    }
 }
