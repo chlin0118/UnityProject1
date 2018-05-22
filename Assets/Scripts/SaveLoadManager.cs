@@ -60,6 +60,7 @@ public class PlayerData{
     public string accountInput;
     public string passwordInput;
     public bool isToggleOn;
+    public string userName;
 
 	public PlayerData(PlayerStatus player){
 		playerPosX = player.transform.position.x;
@@ -76,5 +77,6 @@ public class PlayerData{
         accountInput = player.accountInput;
         passwordInput = player.passwordInput;
         isToggleOn = player.isToggleOn;
+        userName = player.userName;
     }
 }

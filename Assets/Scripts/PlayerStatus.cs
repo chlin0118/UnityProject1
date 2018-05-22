@@ -24,6 +24,7 @@ public class PlayerStatus : MonoBehaviour {
     public string accountInput;
     public string passwordInput;
     public bool isToggleOn;
+    public string userName;
 
     private float secondsCount;
 	private float perSecond = 1;
@@ -99,6 +100,7 @@ public class PlayerStatus : MonoBehaviour {
             accountInput = data.accountInput;
             passwordInput = data.passwordInput;
             isToggleOn = data.isToggleOn;
+            userName = data.userName;
 
             checkState ();
 		} else {

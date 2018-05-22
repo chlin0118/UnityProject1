@@ -11,6 +11,7 @@ public class FirebaseScript : MonoBehaviour {
     public PlayerStatus playerStatus;
     public InputField EmailAddress, Password;
     public InputField RegEmailAddress, RegPassword;
+    public InputField RegName;
     public GameObject windowPanel;
     public Text windowPanelText;
 
@@ -63,6 +64,8 @@ public class FirebaseScript : MonoBehaviour {
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
 
+            Debug.Log("user: " + playerStatus.userName + " login successfully");
+
             if (toggle.isOn) {
                 playerStatus.setAccountAndPassword(EmailAddress.text, Password.text);
             }
@@ -92,6 +95,8 @@ public class FirebaseScript : MonoBehaviour {
             Debug.LogFormat("Firebase user created successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
 
+            playerStatus.userName = RegName.text;
+            SaveLoadManager.SavePlayer(playerStatus);
             showWindow("註冊成功");
 
         });
