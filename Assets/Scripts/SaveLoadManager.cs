@@ -60,9 +60,15 @@ public class PlayerData{
     public string accountInput;
     public string passwordInput;
     public bool isToggleOn;
-    public string userName;
+    public string userId;
 
-	public PlayerData(PlayerStatus player){
+    public int totalPlayedTime;
+    public int correctBy1Time;
+    public int correctBy2Times;
+    public int correctBy3Times;
+    public int correctBy4Times;
+
+    public PlayerData(PlayerStatus player){
 		playerPosX = player.transform.position.x;
 		playerPosY = player.transform.position.y;
 		playerPosZ = player.transform.position.z;
@@ -77,6 +83,12 @@ public class PlayerData{
         accountInput = player.accountInput;
         passwordInput = player.passwordInput;
         isToggleOn = player.isToggleOn;
-        userName = player.userName;
+        userId = player.userId;
+
+        totalPlayedTime = player.totalPlayedTime;
+        correctBy1Time = player.correctBy1Time;
+        correctBy2Times = player.correctBy2Times;
+        correctBy3Times = player.correctBy3Times;
+        correctBy4Times = player.correctBy4Times;
     }
 }

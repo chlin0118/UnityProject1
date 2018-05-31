@@ -24,9 +24,15 @@ public class PlayerStatus : MonoBehaviour {
     public string accountInput;
     public string passwordInput;
     public bool isToggleOn;
-    public string userName;
+    public string userId;
 
-    private float secondsCount;
+    public int totalPlayedTime;
+    public int correctBy1Time;
+    public int correctBy2Times;
+    public int correctBy3Times;
+    public int correctBy4Times;
+
+    private float secondsCount = 0;
 	private float perSecond = 1;
 
 	// Use this for initialization
@@ -44,7 +50,9 @@ public class PlayerStatus : MonoBehaviour {
 			currentAttack = Attacks[currentLevel];
 		}
 
-	}
+        secondsCount += Time.deltaTime;
+
+    }
 		
 	public void AddExperience(int experienceToAdd){
 		currentExp += experienceToAdd;
@@ -80,10 +88,20 @@ public class PlayerStatus : MonoBehaviour {
         isToggleOn = isOn;
     }
 
+    public void setAnswerTimes(int[] array){
+        correctBy1Time += array[0];
+        correctBy2Times += array[1];
+        correctBy3Times += array[2];
+        correctBy4Times += array[3];
+    }
+
 	public void Save(){
 		currentScene = SceneManager.GetActiveScene ().name;
-		SaveLoadManager.SavePlayer (this);
-	}
+        totalPlayedTime += (int)secondsCount;
+        secondsCount = 0;
+        SaveLoadManager.SavePlayer (this);
+        FirebaseScript.writeToDB(userId, gameState, totalPlayedTime, correctBy1Time, correctBy2Times, correctBy3Times, correctBy4Times);
+    }
 
 	public void Load(){
 		PlayerData data = SaveLoadManager.LoadPlayer ();
@@ -100,7 +118,13 @@ public class PlayerStatus : MonoBehaviour {
             accountInput = data.accountInput;
             passwordInput = data.passwordInput;
             isToggleOn = data.isToggleOn;
-            userName = data.userName;
+            userId = data.userId;
+
+            totalPlayedTime = data.totalPlayedTime;
+            correctBy1Time = data.correctBy1Time;
+            correctBy2Times = data.correctBy2Times;
+            correctBy3Times = data.correctBy3Times;
+            correctBy4Times = data.correctBy4Times;
 
             checkState ();
 		} else {

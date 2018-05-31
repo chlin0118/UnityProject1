@@ -26,6 +26,7 @@ public class QAUI : MonoBehaviour {
 	const int PlayerAnimating = 2;
 	const int MonsterAnimating = 3;
 	const int BattleEnd = 4;
+    const int WaitToDie = 5;
 	bool waiting = true;
 	bool haveHitted = false;
 
@@ -81,6 +82,8 @@ public class QAUI : MonoBehaviour {
 
 	Problems p1;
 
+    int answerCounts; //計算答題狀況
+    int[] answerTimesPerQuestion = {0,0,0,0};
 
 	// Use this for initialization
 	void Start () {
@@ -227,10 +230,13 @@ public class QAUI : MonoBehaviour {
 				}
 			} 
 			if (!waiting){
-				back ();
+                gameState = WaitToDie;
+                back ();
 			}
 			break;
-		} 
+        default:
+            break;
+        } 
 	}
 
 	public void startProblem(int type){
@@ -252,9 +258,11 @@ public class QAUI : MonoBehaviour {
 		case APPLICATIONarithmetic:
 			Type3Problem ();
 			break;
-		} 
+		}
 
-	}
+        answerCounts = 0;
+
+    }
 
 	void Type1Problem(){//純數運算
 		timer_f = 0;
@@ -444,7 +452,7 @@ public class QAUI : MonoBehaviour {
 
 			answerArea.gameObject.SetActive (true);
 
-
+            answerTimesPerQuestion[answerCounts]++;
 
 			waiting = false;
 
@@ -496,9 +504,9 @@ public class QAUI : MonoBehaviour {
 				promptArea.text = "提示:\n"+p1.promptWrong ();
 			}
 
+            answerCounts++;
 
-
-		}
+        }
 	}
 
 	void playerHit(){
@@ -567,7 +575,12 @@ public class QAUI : MonoBehaviour {
 	void back(){
 		SceneController sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
 
-		if (sceneController != null) {
+        playerStatus.setAnswerTimes(answerTimesPerQuestion);// add answer times to player
+        Debug.Log("{0}{}:" + answerTimesPerQuestion[0]);
+        Debug.Log("{1}{}:" + answerTimesPerQuestion[1]);
+        Debug.Log("{2}{}:" + answerTimesPerQuestion[2]);
+        Debug.Log("{3}{}:" + answerTimesPerQuestion[3]);
+        if (sceneController != null) {
 			StartCoroutine (sceneController.unLoadBattleScene ("QA"));
 		}
 	}
