@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/menu.unity
     guid: 5508091d8f7a6c54a930a9fd4c42f99f
   - enabled: 1
+    path: Assets/Scenes/teacher.unity
+    guid: 5b4e593e75402404bbe593d9cad3dec5
+  - enabled: 1
     path: Assets/Scenes/main.unity
     guid: 3605fb5e7ec75964484c496a3a07f378
   - enabled: 1
@@ -38,3 +41,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/battlegroundDown.unity
     guid: 3b655ffa0e7f1624bbd10f9856315f40
+  m_configObjects: {}

@@ -11,6 +11,9 @@
     public int correctBy3Times;
     public int correctBy4Times;
 
+    public int totalProblems;
+    public float correctRate;
+
     public User()
     {
     }
@@ -20,5 +23,16 @@
         this.username = username;
         this.email = email;
         this.number = number;
+    }
+
+    public User(string username, int number, int playerStage, int totalPlayedTime, int correctBy1Time, int totalProblems, float correctRate)
+    {
+        this.username = username;
+        this.number = number;
+        this.playerStage = playerStage;
+        this.totalPlayedTime = totalPlayedTime;
+        this.correctBy1Time = correctBy1Time;
+        this.totalProblems = totalProblems;
+        this.correctRate = correctRate;
     }
 }

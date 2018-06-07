@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
@@ -43,6 +45,8 @@ public class FirebaseScript : MonoBehaviour {
         mDatabaseRef = FirebaseDatabase.DefaultInstance.RootReference;
 
         auth = FirebaseAuth.DefaultInstance;
+
+        //retrievingFromDB();
 
         playerStatus.Load();
 
@@ -112,6 +116,11 @@ public class FirebaseScript : MonoBehaviour {
         });
     }
 
+    public void TeacherLoginButtonPressed()
+    {
+        SceneManager.LoadScene("teacher");
+    }
+
     private void showWindow(string text) {
         windowPanel.SetActive(true);
         windowPanelText.text = text;
@@ -133,6 +142,37 @@ public class FirebaseScript : MonoBehaviour {
         mDatabaseRef.Child("users").Child(userId).Child("correctBy3Times").SetValueAsync(c3);
         mDatabaseRef.Child("users").Child(userId).Child("correctBy4Times").SetValueAsync(c4);
 
+        mDatabaseRef.Child("users").Child(userId).Child("totalProblems").SetValueAsync(c1+c2+c3+c4);
+        mDatabaseRef.Child("users").Child(userId).Child("correctRate").SetValueAsync((float)c1/(c1+c2+c3+c4));
+    }
+
+    public  void retrievingFromDB(TeacherScene teacherScene) {
+        mDatabaseRef.Child("users").OrderByChild("number").GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                // Handle the error...
+                Debug.LogError("retrieving task error");
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                // Do something with snapshot...
+                foreach (DataSnapshot user in snapshot.Children)
+                {
+                    IDictionary dictUser = (IDictionary)user.Value;
+                    Debug.Log("" + dictUser["number"] + " - " + dictUser["username"]);
+                    Debug.Log("useid: " + user.Key);
+                    User newUser = new User((string)dictUser["username"], Convert.ToInt32(dictUser["number"]), Convert.ToInt32(dictUser["playerStage"]), 
+                        Convert.ToInt32(dictUser["totalPlayedTime"]), Convert.ToInt32(dictUser["correctBy1Time"]), Convert.ToInt32(dictUser["totalProblems"]),
+                         float.Parse(dictUser["correctRate"].ToString()));
+                    Debug.Log("newUser: " + newUser.username);
+                    Debug.Log("newUser: " + newUser.number);
+                    Debug.Log("newUser: " + newUser.correctRate.ToString("P0"));
+
+                    teacherScene.createStudentInfo(newUser);
+                }
+            }
+        });
     }
 
 }
