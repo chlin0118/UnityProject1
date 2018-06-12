@@ -85,8 +85,13 @@ public class QAUI : MonoBehaviour {
     int answerCounts; //計算答題狀況
     int[] answerTimesPerQuestion = {0,0,0,0};
 
-	// Use this for initialization
-	void Start () {
+    //計算各題型狀況
+    int[] answerTimesPerQuestionInType1 = { 0, 0, 0, 0 };
+    int[] answerTimesPerQuestionInType2 = { 0, 0 };
+    int[] answerTimesPerQuestionInType3 = { 0, 0, 0, 0 };
+
+    // Use this for initialization
+    void Start () {
 		animatorOfPlayer = playerInFight.GetComponent<Animator> ();
 		animatorOfAnimImages = animImages.GetComponent<Animator> ();
 		animatorOfMonster = monsterInFight.GetComponent<Animator> ();
@@ -454,7 +459,16 @@ public class QAUI : MonoBehaviour {
 
             answerTimesPerQuestion[answerCounts]++;
 
-			waiting = false;
+            if (quationType == PUREarithmetic) {
+                answerTimesPerQuestionInType1[answerCounts]++;
+            } else if (quationType == APPLICATIONformula) {
+                answerTimesPerQuestionInType2[answerCounts]++;
+            } else if (quationType == APPLICATIONarithmetic) {
+                answerTimesPerQuestionInType3[answerCounts]++;
+            }
+
+
+            waiting = false;
 
 		} else {
 
@@ -576,10 +590,9 @@ public class QAUI : MonoBehaviour {
 		SceneController sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
 
         playerStatus.setAnswerTimes(answerTimesPerQuestion);// add answer times to player
-        Debug.Log("{0}{}:" + answerTimesPerQuestion[0]);
-        Debug.Log("{1}{}:" + answerTimesPerQuestion[1]);
-        Debug.Log("{2}{}:" + answerTimesPerQuestion[2]);
-        Debug.Log("{3}{}:" + answerTimesPerQuestion[3]);
+        playerStatus.setAnswerTimesInType1(answerTimesPerQuestionInType1);// add answer times to player
+        playerStatus.setAnswerTimesInType2(answerTimesPerQuestionInType2);// add answer times to player
+        playerStatus.setAnswerTimesInType3(answerTimesPerQuestionInType3);// add answer times to player
         if (sceneController != null) {
 			StartCoroutine (sceneController.unLoadBattleScene ("QA"));
 		}

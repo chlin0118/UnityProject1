@@ -32,6 +32,19 @@ public class PlayerStatus : MonoBehaviour {
     public int correctBy3Times;
     public int correctBy4Times;
 
+    public int correctBy1TimeInType1;
+    public int correctBy2TimesInType1;
+    public int correctBy3TimesInType1;
+    public int correctBy4TimesInType1;
+
+    public int correctBy1TimeInType2;
+    public int correctBy2TimesInType2;
+
+    public int correctBy1TimeInType3;
+    public int correctBy2TimesInType3;
+    public int correctBy3TimesInType3;
+    public int correctBy4TimesInType3;
+
     private float secondsCount = 0;
 	private float perSecond = 1;
 
@@ -95,12 +108,36 @@ public class PlayerStatus : MonoBehaviour {
         correctBy4Times += array[3];
     }
 
-	public void Save(){
+    public void setAnswerTimesInType1(int[] array)
+    {
+        correctBy1TimeInType1 += array[0];
+        correctBy2TimesInType1 += array[1];
+        correctBy3TimesInType1 += array[2];
+        correctBy4TimesInType1 += array[3];
+    }
+
+    public void setAnswerTimesInType2(int[] array)
+    {
+        correctBy1TimeInType2 += array[0];
+        correctBy2TimesInType2 += array[1];
+    }
+
+    public void setAnswerTimesInType3(int[] array)
+    {
+        correctBy1TimeInType3 += array[0];
+        correctBy2TimesInType3 += array[1];
+        correctBy3TimesInType3 += array[2];
+        correctBy4TimesInType3 += array[3];
+    }
+
+    public void Save(){
 		currentScene = SceneManager.GetActiveScene ().name;
         totalPlayedTime += (int)secondsCount;
         secondsCount = 0;
         SaveLoadManager.SavePlayer (this);
-        FirebaseScript.writeToDB(userId, gameState, totalPlayedTime, correctBy1Time, correctBy2Times, correctBy3Times, correctBy4Times);
+        FirebaseScript.writeToDB(userId, gameState, totalPlayedTime, correctBy1Time, correctBy2Times, correctBy3Times, correctBy4Times,
+            correctBy1TimeInType1, correctBy2TimesInType1, correctBy3TimesInType1, correctBy4TimesInType1, correctBy1TimeInType2, correctBy2TimesInType2, 
+            correctBy1TimeInType3, correctBy2TimesInType3, correctBy3TimesInType3, correctBy4TimesInType3);
     }
 
 	public void Load(){
@@ -125,6 +162,19 @@ public class PlayerStatus : MonoBehaviour {
             correctBy2Times = data.correctBy2Times;
             correctBy3Times = data.correctBy3Times;
             correctBy4Times = data.correctBy4Times;
+
+            correctBy1TimeInType1 = data.correctBy1TimeInType1;
+            correctBy2TimesInType1 = data.correctBy2TimesInType1;
+            correctBy3TimesInType1 = data.correctBy3TimesInType1;
+            correctBy4TimesInType1 = data.correctBy4TimesInType1;
+
+            correctBy1TimeInType2 = data.correctBy1TimeInType2;
+            correctBy2TimesInType2 = data.correctBy2TimesInType2;
+
+            correctBy1TimeInType3 = data.correctBy1TimeInType3;
+            correctBy2TimesInType3 = data.correctBy2TimesInType3;
+            correctBy3TimesInType3 = data.correctBy3TimesInType3;
+            correctBy4TimesInType3 = data.correctBy4TimesInType3;
 
             checkState ();
 		} else {

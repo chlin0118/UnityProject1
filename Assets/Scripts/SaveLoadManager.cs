@@ -68,6 +68,19 @@ public class PlayerData{
     public int correctBy3Times;
     public int correctBy4Times;
 
+    public int correctBy1TimeInType1;
+    public int correctBy2TimesInType1;
+    public int correctBy3TimesInType1;
+    public int correctBy4TimesInType1;
+
+    public int correctBy1TimeInType2;
+    public int correctBy2TimesInType2;
+
+    public int correctBy1TimeInType3;
+    public int correctBy2TimesInType3;
+    public int correctBy3TimesInType3;
+    public int correctBy4TimesInType3;
+
     public PlayerData(PlayerStatus player){
 		playerPosX = player.transform.position.x;
 		playerPosY = player.transform.position.y;
@@ -90,5 +103,18 @@ public class PlayerData{
         correctBy2Times = player.correctBy2Times;
         correctBy3Times = player.correctBy3Times;
         correctBy4Times = player.correctBy4Times;
+
+        correctBy1TimeInType1 = player.correctBy1TimeInType1;
+        correctBy2TimesInType1 = player.correctBy2TimesInType1;
+        correctBy3TimesInType1 = player.correctBy3TimesInType1;
+        correctBy4TimesInType1 = player.correctBy4TimesInType1;
+
+        correctBy1TimeInType2 = player.correctBy1TimeInType2;
+        correctBy2TimesInType2 = player.correctBy2TimesInType2;
+
+        correctBy1TimeInType3 = player.correctBy1TimeInType3;
+        correctBy2TimesInType3 = player.correctBy2TimesInType3;
+        correctBy3TimesInType3 = player.correctBy3TimesInType3;
+        correctBy4TimesInType3 = player.correctBy4TimesInType3;
     }
 }

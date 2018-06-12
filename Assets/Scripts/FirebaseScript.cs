@@ -134,16 +134,59 @@ public class FirebaseScript : MonoBehaviour {
         mDatabaseRef.Child("users").Child(userId).SetRawJsonValueAsync(json);
     }
 
-    public static void writeToDB(string userId, int state, int playedTime, int c1, int c2, int c3, int c4) {
+    public static void writeToDB(string userId, int state, int playedTime, int c1, int c2, int c3, int c4,
+        int c1InType1, int c2InType1, int c3InType1, int c4InType1, int c1InType2, int c2InType2, int c1InType3, int c2InType3, int c3InType3, int c4InType3) {
+
+        int total ;
+        float rate;
+
         mDatabaseRef.Child("users").Child(userId).Child("playerStage").SetValueAsync(state);
         mDatabaseRef.Child("users").Child(userId).Child("totalPlayedTime").SetValueAsync(playedTime);
         mDatabaseRef.Child("users").Child(userId).Child("correctBy1Time").SetValueAsync(c1);
         mDatabaseRef.Child("users").Child(userId).Child("correctBy2Times").SetValueAsync(c2);
         mDatabaseRef.Child("users").Child(userId).Child("correctBy3Times").SetValueAsync(c3);
         mDatabaseRef.Child("users").Child(userId).Child("correctBy4Times").SetValueAsync(c4);
+        total = c1 + c2 + c3 + c4;
+        rate = 0;
+        if (total != 0) {
+            rate = (float)c1 / total;
+        }
+        mDatabaseRef.Child("users").Child(userId).Child("totalProblems").SetValueAsync(total);
+        mDatabaseRef.Child("users").Child(userId).Child("correctRate").SetValueAsync(rate);
 
-        mDatabaseRef.Child("users").Child(userId).Child("totalProblems").SetValueAsync(c1+c2+c3+c4);
-        mDatabaseRef.Child("users").Child(userId).Child("correctRate").SetValueAsync((float)c1/(c1+c2+c3+c4));
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy1TimeInType1").SetValueAsync(c1InType1);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy2TimesInType1").SetValueAsync(c2InType1);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy3TimesInType1").SetValueAsync(c3InType1);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy4TimesInType1").SetValueAsync(c4InType1);
+        total = c1InType1 + c2InType1 + c3InType1 + c4InType1;
+        rate = 0;
+        if (total != 0) {
+            rate = (float)c1InType1 / total;
+        }
+        mDatabaseRef.Child("users").Child(userId).Child("totalProblemsInType1").SetValueAsync(total);
+        mDatabaseRef.Child("users").Child(userId).Child("correctRateInType1").SetValueAsync(rate);
+
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy1TimeInType2").SetValueAsync(c1InType2);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy2TimesInType2").SetValueAsync(c2InType2);
+        total = c1InType2 + c2InType2;
+        rate = 0;
+        if (total != 0) {
+            rate = (float)c1InType2 / total;
+        }
+        mDatabaseRef.Child("users").Child(userId).Child("totalProblemsInType2").SetValueAsync(total);
+        mDatabaseRef.Child("users").Child(userId).Child("correctRateInType2").SetValueAsync(rate);
+
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy1TimeInType3").SetValueAsync(c1InType3);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy2TimesInType3").SetValueAsync(c2InType3);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy3TimesInType3").SetValueAsync(c3InType3);
+        mDatabaseRef.Child("users").Child(userId).Child("correctBy4TimesInType3").SetValueAsync(c4InType3);
+        total = c1InType3 + c2InType3 + c3InType3 + c4InType3;
+        rate = 0;
+        if (total != 0) {
+            rate = (float)c1InType3 / total;
+        }
+        mDatabaseRef.Child("users").Child(userId).Child("totalProblemsInType3").SetValueAsync(total);
+        mDatabaseRef.Child("users").Child(userId).Child("correctRateInType3").SetValueAsync(rate);
     }
 
     public  void retrievingFromDB(TeacherScene teacherScene) {
@@ -165,9 +208,20 @@ public class FirebaseScript : MonoBehaviour {
                     User newUser = new User((string)dictUser["username"], Convert.ToInt32(dictUser["number"]), Convert.ToInt32(dictUser["playerStage"]), 
                         Convert.ToInt32(dictUser["totalPlayedTime"]), Convert.ToInt32(dictUser["correctBy1Time"]), Convert.ToInt32(dictUser["totalProblems"]),
                          float.Parse(dictUser["correctRate"].ToString()));
-                    Debug.Log("newUser: " + newUser.username);
-                    Debug.Log("newUser: " + newUser.number);
-                    Debug.Log("newUser: " + newUser.correctRate.ToString("P0"));
+
+                    newUser.setUserInType1(Convert.ToInt32(dictUser["correctBy1TimeInType1"]), Convert.ToInt32(dictUser["correctBy2TimesInType1"]),
+                         Convert.ToInt32(dictUser["correctBy3TimesInType1"]), Convert.ToInt32(dictUser["correctBy4TimesInType1"]),
+                         Convert.ToInt32(dictUser["totalProblemsInType1"]), float.Parse(dictUser["correctRateInType1"].ToString()));
+
+                    newUser.setUserInType2(Convert.ToInt32(dictUser["correctBy1TimeInType2"]), Convert.ToInt32(dictUser["correctBy2TimesInType2"]),
+                        Convert.ToInt32(dictUser["totalProblemsInType2"]), float.Parse(dictUser["correctRateInType2"].ToString()));
+
+                    newUser.setUserInType3(Convert.ToInt32(dictUser["correctBy1TimeInType3"]), Convert.ToInt32(dictUser["correctBy2TimesInType3"]),
+                        Convert.ToInt32(dictUser["correctBy3TimesInType3"]), Convert.ToInt32(dictUser["correctBy4TimesInType3"]),
+                        Convert.ToInt32(dictUser["totalProblemsInType3"]), float.Parse(dictUser["correctRateInType3"].ToString()));
+
+                    Debug.Log("newUser.correctBy1TimeInType1 - " + newUser.correctBy1TimeInType1);
+                    Debug.Log("newUser.correctRate - " + newUser.correctRate);
 
                     teacherScene.createStudentInfo(newUser);
                 }
